@@ -13,7 +13,7 @@ import java.io.IOException;
 public class AdIndividualServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String adId = request.getParameter("id");
-        request.setAttribute("ads", DaoFactory.getAdsDao().oneAd(adId));
+        request.setAttribute("ad", DaoFactory.getAdsDao().oneAd(adId));
         request.setAttribute("user",DaoFactory.getUsersDao().findByAdId(adId));
         request.getRequestDispatcher("/WEB-INF/ads/adIndividual.jsp").forward(request, response);
     }

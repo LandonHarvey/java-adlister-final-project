@@ -24,6 +24,12 @@
         <div class="col-md-6">
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
+            <form action="/edit" method="get">
+                <button type="submit">Edit</button>
+            </form>
+            <form action="/delete" method="get">
+                <button type="submit">Delete</button>
+            </form>
         </div>
     </c:forEach>
 </div>

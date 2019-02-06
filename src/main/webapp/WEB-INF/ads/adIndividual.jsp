@@ -18,15 +18,13 @@
 
 <div class="container">
     <h1>Here is your Ad!</h1>
-<c:forEach var="ad" items="${ads}">
+<%--<c:forEach var="ad" items="${ads}">--%>
     <div class="col-md-6">
-    <c:out value="${user.username}">
-
-    </c:out>
+    <c:out value="${user.username}"> </c:out>
     <h2>${ad.title}</h2>
     <p>${ad.description}</p>
     </div>
-</c:forEach>
+<%--</c:forEach>--%>
 </div>
 </body>
 </html>

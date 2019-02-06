@@ -7,8 +7,7 @@
     </jsp:include>
 </head>
 <body>
-    <jsp:include page="/WEB-INF/partials/navbar-logged-in.jsp" />
-
+    <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
         <h1>Welcome, ${sessionScope.user.username}!</h1>
     </div>
@@ -19,6 +18,12 @@
             <div class="col-md-6">
                 <h2>${ad.title}</h2>
                 <p>${ad.description}</p>
+                <form action="/edit" method="get">
+                    <button name="edit" value="${ad.id}">Edit</button>
+                </form>
+                <form action="/delete" method="get">
+                    <button name="delete" value="${ad.id}">Delete</button>
+                </form>
             </div>
         </c:forEach>
     </div>

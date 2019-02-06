@@ -28,7 +28,11 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
-    public List<Ad> oneAd(String id) {
+    public void update(Ad ad) {
+    }
+
+    @Override
+    public Ad oneAd(String id) {
         return null;
     }
 

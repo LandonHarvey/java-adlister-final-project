@@ -16,17 +16,6 @@ import java.util.List;
 public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userSearch = request.getParameter("Search");
-//        List<Ad> ads = DaoFactory.getAdsDao().all();
-//        List<Ad> resultAd = new ArrayList<>();
-//        for (Ad ad: ads) {
-//            if (ad.getTitle().contains(userSearch)){
-//                System.out.println(ad.getTitle());
-//                System.out.println(userSearch);
-//                resultAd.add(ad);
-//                System.out.println(resultAd.size());
-//            }
-//        }
-//        System.out.println(resultAd);
         request.setAttribute("ads", DaoFactory.getAdsDao().searchAds(userSearch));
 
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);

@@ -27,11 +27,9 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> all() {
-        PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads");
-            ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM ads");
+            return createAdsFromResults(stmt.executeQuery());
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
@@ -55,28 +53,42 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public List<Ad> oneAd(String id) {
+    public void update(Ad ad) {
+        try {
+            String insertQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, ad.getTitle());
+            stmt.setString(2, ad.getDescription());
+            stmt.setLong(3, ad.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
+    }
+
+    @Override
+    public Ad oneAd(String id) {
         String query = "SELECT * FROM ads WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, id);
-            ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
+            ResultSet rs =stmt.executeQuery();
+            rs.next();
+            return extractAd(rs);
         }catch (SQLException e){
             e.printStackTrace();
             throw new RuntimeException("Error finding a ad on id", e);
         }
     }
 
+    //shows ads based on user_id
     @Override
     public List<Ad> userAds(long user_id){
         String query = "SELECT * FROM ads WHERE user_id = ?";
-        System.out.println(user_id);
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, user_id);
-            ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
+            return createAdsFromResults(stmt.executeQuery());
         }catch (SQLException e){
             throw new RuntimeException("Error finding all ads of user", e);
         }
@@ -88,8 +100,7 @@ public class MySQLAdsDao implements Ads {
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, "%" + user_search + "%");
-            ResultSet rs = stmt.executeQuery();
-            return createAdsFromResults(rs);
+            return createAdsFromResults(stmt.executeQuery());
         }catch (SQLException e){
             throw new RuntimeException("Error finding all ads of the users search", e);
         }
