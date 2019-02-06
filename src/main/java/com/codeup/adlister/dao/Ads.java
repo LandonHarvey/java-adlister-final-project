@@ -13,4 +13,5 @@ public interface Ads {
     //get one ad based on id
     List<Ad> oneAd(String id);
     List<Ad> userAds(long user_id);
+    List<Ad> searchAds(String user_search);
 }

@@ -12,8 +12,8 @@ import java.io.IOException;
 @WebServlet(name = "controllers.SearchServlet", urlPatterns = "/search")
 public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String adId = request.getParameter("Search");
-        System.out.println(adId);
+        String userSearch = request.getParameter("Search");
+        request.setAttribute("ads", DaoFactory.getAdsDao().searchAds(userSearch));
         request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
 }

@@ -11,6 +11,9 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="/ads">Adlister</a>
             <a class="navbar-brand" href="/ads/create">Create Ad</a>
+            <form action="/search" method="get">Search By Ad Title:
+                <input type="search" name="Search">
+            </form>
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/profile">Profile</a></li>
