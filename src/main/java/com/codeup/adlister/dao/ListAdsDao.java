@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdsDao implements Ads {
-    private List<Ad> ads;
+    private List<Ad> ads = null;
 
     public List<Ad> all() {
         if (ads == null) {
@@ -25,6 +25,16 @@ public class ListAdsDao implements Ads {
         ad.setId((long) ads.size());
         ads.add(ad);
         return ad.getId();
+    }
+
+    @Override
+    public List<Ad> oneAd(String id) {
+        return null;
+    }
+
+    @Override
+    public List<Ad> userAds(long user_id) {
+        return null;
     }
 
     private List<Ad> generateAds() {
