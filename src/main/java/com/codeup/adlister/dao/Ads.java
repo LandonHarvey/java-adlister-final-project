@@ -11,6 +11,8 @@ public interface Ads {
     Long insert(Ad ad);
     // update an existing ad
     void update(Ad ad);
+    //delete an existing ad
+    void delete(String id);
     //get one ad based on id
     Ad oneAd(String id);
     List<Ad> userAds(long user_id);

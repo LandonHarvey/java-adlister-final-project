@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
+        <c:if test="${sessionScope.invalid != null}">Error Try Again</c:if>
         <h1>Please Log In</h1>
         <form action="/login" method="POST">
             <div class="form-group">

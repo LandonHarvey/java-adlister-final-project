@@ -32,6 +32,10 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
+    public void delete(String id) {
+    }
+
+    @Override
     public Ad oneAd(String id) {
         return null;
     }
