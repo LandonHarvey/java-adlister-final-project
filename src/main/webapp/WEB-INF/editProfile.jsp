@@ -17,27 +17,27 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
         <div class="col-md-6">
-            <c:if test="${sessionScope.updateError != null}">Error Try Again</c:if>
+            <jsp:include page="partials/messages.jsp" />
             <form action="/editProfile" method="post">
                 <div>
                     <label for="username">Username: </label>
-                    <input id="username" name="username" type="text" value="${sessionScope.user.username}">
+                    <input id="username" name="username" type="text" value="${sessionScope.username}">
                 </div>
                 <div>
                     <label for="email">Email: </label>
-                    <input id="email" name="email" type="text" value="${sessionScope.user.email}">
+                    <input id="email" name="email" type="text" value="${sessionScope.email}">
                 </div>
                 <div>
                     <label for="oldpassword">Old Password: </label>
-                    <input id="oldpassword" name="oldpassword" type="text" value="">
+                    <input id="oldpassword" name="oldpassword" type="text" value="${sessionScope.oldpassword}">
                 </div>
                 <div>
                     <label for="newpassword">New Password: </label>
-                    <input id="newpassword" name="newpassword" type="text" value="">
+                    <input id="newpassword" name="newpassword" type="text" value="${sessionScope.newpassword}">
                 </div>
                 <div>
                     <label for="confirmpassword">Confirm Password: </label>
-                    <input id="confirmpassword" name="confirmpassword" type="text" value="">
+                    <input id="confirmpassword" name="confirmpassword" type="text" value="${sessionScope.confirmpassword}">
                 </div>
                 <button type="submit">Submit</button>
             </form>

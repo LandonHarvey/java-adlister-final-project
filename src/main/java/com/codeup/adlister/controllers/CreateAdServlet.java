@@ -2,7 +2,6 @@ package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
-import com.codeup.adlister.models.AdError;
 import com.codeup.adlister.models.User;
 import com.codeup.adlister.util.Validation;
 
@@ -20,27 +19,22 @@ public class CreateAdServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-        request.getRequestDispatcher("/WEB-INF/ads/create.jsp")
-            .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = (User) request.getSession().getAttribute("user");
         String title = request.getParameter("title");
         String des = request.getParameter("description");
-        AdError error = new AdError();
-        System.out.println(error.getError());
-        if (Validation.desSet(des)) {
-            System.out.println(Validation.desSet(des));
-            error.setError("Description not present");
-        }
-        if (!Validation.titleSet(title)){
-            error.setError("Title not present");
-        }
 
-        System.out.println(error.getError());
+        boolean inputHasErrors = (title.isEmpty() || des.isEmpty());
 
-        if (error.getError() == null){
+        if (inputHasErrors) {
+            request.setAttribute("error", "All fields are required.");
+            request.getSession().setAttribute("title", title);
+            request.getSession().setAttribute("description", des);
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+        } else {
         Ad ad = new Ad(
             user.getId(),// for now we'll hardcode the user id
             request.getParameter("title"),
@@ -48,8 +42,6 @@ public class CreateAdServlet extends HttpServlet {
         );
         DaoFactory.getAdsDao().insert(ad);
         response.sendRedirect("/ads");
-        } else {
-            response.sendRedirect("/ads/create");
         }
     }
 }

@@ -9,7 +9,7 @@
 <body>
     <jsp:include page="partials/navbar.jsp" />
     <div class="container">
-        <c:if test="${sessionScope.loginError != null}"> There was an Error Try Again</c:if>
+        <jsp:include page="partials/messages.jsp" />
         <h1>Please fill in your information.</h1>
         <form action="/register" method="post">
             <div class="form-group">

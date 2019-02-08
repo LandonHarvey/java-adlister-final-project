@@ -21,6 +21,19 @@ CREATE TABLE ads (
         ON DELETE CASCADE
 );
 
+CREATE TABLE categories (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    category_name VARCHAR UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+);
+
+CREATE TABLE ad_categories (
+  ad_id INT UNSIGNED NOT NULL,
+  categories_id INT UNSIGNED NOT NULL,
+  FOREIGN KEY (ad_id) REFERENCES ads(id),
+  FOREIGN KEY (categories_id) REFERENCES  categories(id)
+)
+
 SELECT * FROM ads WHERE id = '1';
 
 SELECT * FROM ads JOIN users AS u ON u.id = ads.user_id  WHERE ads.id = 1;

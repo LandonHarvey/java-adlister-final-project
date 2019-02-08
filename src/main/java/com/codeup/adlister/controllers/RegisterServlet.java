@@ -22,7 +22,7 @@ public class RegisterServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -35,18 +35,41 @@ public class RegisterServlet extends HttpServlet {
             || Validation.emailCheck(email)
             || email.isEmpty()
             || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
+            || !Validation.isExistingUser(username)
+            || !Validation.isExistingEmail(email)
+            || (!password.equals(passwordConfirmation));
 
         if (inputHasErrors) {
-            request.getSession().setAttribute("loginError", true);
-            response.sendRedirect("/register");
-            return;
-        }
 
-        // create and save a new user
-        User user = new User(username, email, password);
-        DaoFactory.getUsersDao().insert(user);
-        request.getSession().removeAttribute("loginError");
-        response.sendRedirect("/login");
+            if (username.isEmpty()
+                    || email.isEmpty()
+                    || password.isEmpty()) {
+                request.setAttribute("error", "All fields are required.");
+            } else if ((!password.equals(passwordConfirmation))) {
+                request.setAttribute("error", "Passwords Don't Match.");
+            }else if (Validation.stringlength(username)) {
+                request.setAttribute("error", "Username must be at least 5 characters.");
+            } else if (Validation.emailCheck(email)){
+                request.setAttribute("error", "Email Format Incorrect.");
+            } else if (Password.passlength(password)) {
+                request.setAttribute("error", "Password must by at least 5 characters.");
+            }else if (!Validation.isExistingUser(username)) {
+                request.setAttribute("error", "Username Taken");
+            } else if (!Validation.isExistingEmail(email)){
+                request.setAttribute("error", "Email already linked to account");
+            } else {
+                request.setAttribute("error", "Please check information and try again");
+            }
+            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("email", email);
+            request.getSession().setAttribute("password", password);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            return;
+        } else {
+            // create and save a new user
+            User user = new User(username, email, password);
+            DaoFactory.getUsersDao().insert(user);
+            response.sendRedirect("/login");
+        }
     }
 }

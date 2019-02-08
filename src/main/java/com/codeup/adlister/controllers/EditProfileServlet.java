@@ -15,14 +15,10 @@ import java.io.IOException;
 @WebServlet(name = "controllers.EditProfileServlet", urlPatterns = "/editProfile")
 public class EditProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("updateError") != null){
-            request.getRequestDispatcher("/WEB-INF/editProfile.jsp").forward(request, response);
-        }
-        request.getSession().removeAttribute("updateError");
         request.getRequestDispatcher("/WEB-INF/editProfile.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String oldpassword = request.getParameter("oldpassword");
@@ -44,15 +40,25 @@ public class EditProfileServlet extends HttpServlet {
                 || email.isEmpty()
                 || Password.passlength(newpassword)
                 || Password.passlength(confirmpassword)
-                ;
+                || !Password.check(username, user.getPassword());
 
-        if ((confirmpassword.equals("") || newpassword.equals("") || oldpassword.equals("")) && !inputHasErrors) {
+        boolean inputPasswordEquals = confirmpassword.equals("")
+                || newpassword.equals("")
+                || oldpassword.equals("");
+
+
+        if (inputPasswordEquals && !inputHasErrors) {
             User newUser = new User (
                     userid,
                     username,
                     email,
                     user.getPassword()
             );
+            request.getSession().removeAttribute("username");
+            request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("oldpassword");
+            request.getSession().removeAttribute("newpassword");
+            request.getSession().removeAttribute("confirmpassword");
             DaoFactory.getUsersDao().update(newUser);
             request.getSession().setAttribute("user", newUser);
             response.sendRedirect("/profile");
@@ -72,7 +78,28 @@ public class EditProfileServlet extends HttpServlet {
             return;
         }
 
-        request.getSession().setAttribute("updateError", true);
-        response.sendRedirect("/editProfile");
+        if (inputsHasErrors || !inputPasswordEquals) {
+            if (Validation.stringlength(username)) {
+                request.setAttribute("error", "Username must be at least 5 characters");
+            }else if (Validation.emailCheck(email)) {
+                request.setAttribute("error", "Check email format");
+            }else if (username.isEmpty()
+                    || email.isEmpty()){
+                request.setAttribute("error", "Username and Email minimum");
+            }else if (Password.passlength(newpassword)
+                    || Password.passlength(confirmpassword)) {
+                request.setAttribute("error", "Password Length");
+            }else if (!newpassword.equals(confirmpassword)){
+                request.setAttribute("error", "Passwords dont match");
+            } else {
+                request.setAttribute("error", "Please check all fields");
+            }
+            request.getSession().setAttribute("username", username);
+            request.getSession().setAttribute("email", email);
+            request.getSession().setAttribute("oldpassword", oldpassword);
+            request.getSession().setAttribute("newpassword", newpassword);
+            request.getSession().setAttribute("confirmpassword", confirmpassword);
+            request.getRequestDispatcher("/WEB-INF/editProfile.jsp").forward(request, response);
+        }
     }
   }

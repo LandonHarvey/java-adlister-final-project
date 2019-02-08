@@ -13,7 +13,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
-            <li><a href="/logout">Logout</a></li>
+            <c:if test="${sessionScope.user != null}"><li><a href="/logout">Logout</a></li></c:if>
         </ul>
     </div><!-- /.navbar-collapse -->
 </nav>
