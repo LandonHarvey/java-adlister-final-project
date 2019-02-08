@@ -36,13 +36,13 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public Long insert(Ad ad) {
+    public Long insert(Long id, String title, String des) {
         try {
             String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, ad.getUserId());
-            stmt.setString(2, ad.getTitle());
-            stmt.setString(3, ad.getDescription());
+            stmt.setLong(1, id);
+            stmt.setString(2, title);
+            stmt.setString(3, des);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -119,11 +119,13 @@ public class MySQLAdsDao implements Ads {
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
+        long id = rs.getLong("id");
         return new Ad(
             rs.getLong("id"),
             rs.getLong("user_id"),
             rs.getString("title"),
-            rs.getString("description")
+            rs.getString("description"),
+            getAdCategories(id)
         );
     }
 
@@ -133,5 +135,21 @@ public class MySQLAdsDao implements Ads {
             ads.add(extractAd(rs));
         }
         return ads;
+    }
+
+    private List<String> createCategoriesFromResults(ResultSet rs) throws SQLException {
+        List<String> categories = new ArrayList<>();
+        while (rs.next()) {
+            System.out.println(rs);
+            categories.add(rs.getString("category"));
+        }
+        return categories;
+    }
+
+    private List<String> getAdCategories(Long id) throws SQLException {
+        String query = "SELECT category_name AS category FROM categories c JOIN ad_categories ac ON c.id = ac.categories_id WHERE ad_id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        return createCategoriesFromResults(stmt.executeQuery());
     }
 }

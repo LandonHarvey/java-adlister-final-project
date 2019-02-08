@@ -20,6 +20,14 @@
                 <label for="description">Description</label>
                 <textarea id="description" name="description" class="form-control">${sessionScope.description}</textarea>
             </div>
+            <div>
+                <label for="categories">Description</label>
+                <select name="categories" id="categories" name="categories" multiple>
+                    <c:forEach var="category" items="${categories}">
+                        <option value="${category.getId()}"> <c:out value="${category.getName()}"></c:out></option>
+                    </c:forEach>
+                </select>
+            </div>
             <input type="submit" class="btn btn-block btn-primary">
         </form>
     </div>

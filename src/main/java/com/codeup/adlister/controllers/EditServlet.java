@@ -28,13 +28,13 @@ public class EditServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("user");
         System.out.println(adId + "post");
 
-        Ad ad = new Ad (
-                adId,
-                user.getId(),
-                adtitle,
-                addes
-        );
-        DaoFactory.getAdsDao().update(ad);
+//        Ad ad = new Ad (
+//                adId,
+//                user.getId(),
+//                adtitle,
+//                addes
+//        );
+//        DaoFactory.getAdsDao().update(ad);
 
         response.sendRedirect("/profile");
     }

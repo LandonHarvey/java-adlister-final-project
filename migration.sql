@@ -1,5 +1,10 @@
 USE adlister_db;
 
+DROP DATABASE adlister_db;
+
+CREATE DATABASE adlister_db;
+
+
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 
@@ -23,8 +28,8 @@ CREATE TABLE ads (
 
 CREATE TABLE categories (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    category_name VARCHAR UNSIGNED NOT NULL,
-    PRIMARY KEY (id),
+    category_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE ad_categories (
@@ -32,10 +37,21 @@ CREATE TABLE ad_categories (
   categories_id INT UNSIGNED NOT NULL,
   FOREIGN KEY (ad_id) REFERENCES ads(id),
   FOREIGN KEY (categories_id) REFERENCES  categories(id)
-)
+    ON DELETE CASCADE
+);
+
+INSERT INTO categories (category_name)
+VALUES ('computer'), ('house'), ('car');
+
+INSERT INTO ad_categories (ad_id, categories_id)
+VALUES (6,1), (6,2);
 
 SELECT * FROM ads WHERE id = '1';
 
 SELECT * FROM ads JOIN users AS u ON u.id = ads.user_id  WHERE ads.id = 1;
 
 SELECT * FROM ads WHERE user_id = 2;
+
+SELECT category_name AS category FROM categories c JOIN ad_categories ac ON c.id = ac.categories_id WHERE ad_id = 6;
+
+
