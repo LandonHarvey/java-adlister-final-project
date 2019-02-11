@@ -11,6 +11,8 @@ public interface Ads {
     Long insert(Long id, String title, String des);
     // update an existing ad
     void update(Ad ad);
+    //update an existing ad with different items provided
+    void update(long adId, String title, String description);
     //delete an existing ad
     void delete(String id);
     //get one ad based on id
