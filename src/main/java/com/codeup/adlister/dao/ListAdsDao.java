@@ -25,8 +25,6 @@ public class ListAdsDao implements Ads {
         if (ads == null) {
 //            ads = generateAds();
         }
-        // we'll assign an "id" here based on the size of the ads list
-        // really the dao would handle this
         ad.setId((long) ads.size());
         ads.add(ad);
         return ad.getId();
@@ -37,7 +35,32 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
+    public void update(long adId, String title, String description) {
+
+    }
+
+    @Override
+    public void updateTitle(long adId, String title) {
+
+    }
+
+    @Override
+    public void updateDescription(long adId, String des) {
+
+    }
+
+    @Override
+    public void updateCategories(long adId, long catId) {
+
+    }
+
+    @Override
     public void delete(String id) {
+    }
+
+    @Override
+    public Ad oneAd(Long id) {
+        return null;
     }
 
     @Override

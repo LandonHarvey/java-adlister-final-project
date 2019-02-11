@@ -26,21 +26,43 @@ public class EditServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         long adId = Long.parseLong(request.getParameter("adId"));
-        String adIdString = request.getParameter("adId");
         String adtitle = request.getParameter("title");
         String addes = request.getParameter("description");
         User user = (User) request.getSession().getAttribute("user");
+        Ad adOld = DaoFactory.getAdsDao().oneAd(adId);
         String[] categories = request.getParameterValues("categories");
 
         boolean inputHasErrors = (adtitle.isEmpty() || addes.isEmpty() || categories == null);
 
         if (inputHasErrors) {
-            request.setAttribute("error", "All fields are required.");
+            request.setAttribute("error", "All fields are Required.");
             List<Category> categoriesList = DaoFactory.getCategoriesDao().all();
-            request.setAttribute("updatedAd", DaoFactory.getAdsDao().oneAd(adIdString));
+            request.setAttribute("updatedAd", DaoFactory.getAdsDao().oneAd(adId));
             request.setAttribute("categories", categoriesList);
             request.setAttribute("editAd",adId);
             request.getRequestDispatcher("/WEB-INF/ads/editAd.jsp").forward(request, response);
+        }
+
+        if (!adOld.getTitle().equals(adtitle)){
+            DaoFactory.getAdsDao().updateTitle(adId, adtitle);
+            System.out.println(adId);
+            System.out.println("done" + adtitle);
+        }
+
+        if (!adOld.getDescription().equals(addes)){
+            DaoFactory.getAdsDao().updateDescription(adId, addes);
+            System.out.println(adId);
+            System.out.println("done" + addes);
+        }
+
+
+        if (categories != null) {
+            for (String name : categories) {
+                Long catId = Long.valueOf(name);
+                DaoFactory.getAdsDao().updateCategories(adId, catId);
+                System.out.println(adId);
+                System.out.println("done" + name);
+            }
         }
 
 //        Ad ad = new Ad (

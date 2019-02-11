@@ -36,12 +36,26 @@ public class MySQLCategoriesDao implements AdCategories{
 
     @Override
     public List<adCategories> byCategoryID(Long categoryID) {
-        return null;
+        String query = "SELECT * FROM ad_categories WHERE categories_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, categoryID);
+            return createAdCategoryFromResults(stmt.executeQuery());
+        }catch (SQLException e){
+            throw new RuntimeException("Error selected ad by categories_id");
+        }
     }
 
     @Override
     public List<adCategories> byAdID(Long adID) {
-        return null;
+        String query = "SELECT * FROM ad_categories WHERE ad_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, adID);
+            return createAdCategoryFromResults(stmt.executeQuery());
+        }catch (SQLException e){
+            throw new RuntimeException("Error selected ad by ad_id");
+        }
     }
 
     @Override
@@ -60,9 +74,31 @@ public class MySQLCategoriesDao implements AdCategories{
         }
     }
 
+    //deletes a category from a certain ad
     @Override
     public Boolean delete(Long adID, Long categoryID) {
-        return null;
+        String query = "DELETE * FROM ad_categories WHERE ad_id = ? AND categories_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1,adID);
+            stmt.setLong(2,categoryID);
+            return stmt.execute();
+        }catch (SQLException e){
+            throw new RuntimeException("Error selected ad by ad_id");
+        }
+    }
+
+    //deletes all categories associated with a given ad
+    @Override
+    public Boolean delete(Long adID) {
+        String query = "DELETE * FROM ad_categories WHERE ad_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1,adID);
+            return stmt.execute();
+        }catch (SQLException e){
+            throw new RuntimeException("Error selected ad by ad_id");
+        }
     }
 
     private adCategories extractAdCategory(ResultSet rs) throws SQLException {

@@ -10,4 +10,5 @@ public interface AdCategories {
     List<adCategories> byAdID(Long adID);
     Boolean insert(Long adID, Long categoryID);
     Boolean delete(Long adID, Long categoryID);
+    Boolean delete(Long adID);
 }

@@ -2,11 +2,14 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
 import com.mysql.cj.jdbc.Driver;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MySQLAdsDao implements Ads {
@@ -74,10 +77,55 @@ public class MySQLAdsDao implements Ads {
           stmt.setString(1, title);
           stmt.setString(2, description);
           stmt.setLong(3, adId);
+          stmt.executeUpdate();
       }catch (SQLException e){
           throw new RuntimeException("Error updating ad", e);
       }
     }
+
+    @Override
+    public void updateTitle(long adId, String title) {
+        String insertQuery = "UPDATE ads SET title = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(insertQuery);
+            stmt.setString(1, title);
+            stmt.setLong(2, adId);
+            stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException("Error updating ad title", e);
+        }
+    }
+
+    @Override
+    public void updateDescription(long adId, String des) {
+        String insertQuery = "UPDATE ads SET description = ? WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(insertQuery);
+            stmt.setString(1, des);
+            stmt.setLong(2, adId);
+            stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException("Error updating ad description", e);
+        }
+    }
+
+    @Override
+    public void updateCategories(long adId, long catId) {
+        String removeQuery = "DELETE FROM ad_categories WHERE ad_id = ?";
+        String insertQuery = "INSERT INTO ad_categories (ad_id, categories_id) VALUES (?, ?)";
+        try {
+            PreparedStatement stmtDelete = connection.prepareStatement(removeQuery);
+            stmtDelete.setLong(1, adId);
+            stmtDelete.execute();
+            PreparedStatement stmt = connection.prepareStatement(insertQuery);
+            stmt.setLong(1, adId);
+            stmt.setLong(2, catId);
+            stmt.executeUpdate();
+        }catch (SQLException e){
+            throw new RuntimeException("Error updating ad categories", e);
+        }
+    }
+
 
     @Override
     public void delete(String id) {
@@ -88,6 +136,21 @@ public class MySQLAdsDao implements Ads {
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting ad based on id.", e);
+        }
+    }
+
+    @Override
+    public Ad oneAd(Long id) {
+        String query = "SELECT * FROM ads WHERE id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, id);
+            ResultSet rs =stmt.executeQuery();
+            rs.next();
+            return extractAd(rs);
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException("Error finding an ad on id", e);
         }
     }
 

@@ -13,9 +13,16 @@ public interface Ads {
     void update(Ad ad);
     //update an existing ad with different items provided
     void update(long adId, String title, String description);
+    //update ad title
+    void updateTitle(long adId, String title);
+    //update ad description
+    void updateDescription(long adId, String des);
+    //update ad categories
+    void updateCategories(long adId, long catId);
     //delete an existing ad
     void delete(String id);
     //get one ad based on id
+    Ad oneAd(Long id);
     Ad oneAd(String id);
     List<Ad> userAds(long user_id);
     List<Ad> searchAds(String user_search);
