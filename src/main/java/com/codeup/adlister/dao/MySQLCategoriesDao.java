@@ -91,13 +91,13 @@ public class MySQLCategoriesDao implements AdCategories{
     //deletes all categories associated with a given ad
     @Override
     public Boolean delete(Long adID) {
-        String query = "DELETE * FROM ad_categories WHERE ad_id = ?";
+        String query = "DELETE FROM ad_categories WHERE ad_id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1,adID);
             return stmt.execute();
         }catch (SQLException e){
-            throw new RuntimeException("Error selected ad by ad_id");
+            throw new RuntimeException("Error selected ad_categories by ad_id");
         }
     }
 

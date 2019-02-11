@@ -111,12 +111,8 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public void updateCategories(long adId, long catId) {
-        String removeQuery = "DELETE FROM ad_categories WHERE ad_id = ?";
         String insertQuery = "INSERT INTO ad_categories (ad_id, categories_id) VALUES (?, ?)";
         try {
-            PreparedStatement stmtDelete = connection.prepareStatement(removeQuery);
-            stmtDelete.setLong(1, adId);
-            stmtDelete.execute();
             PreparedStatement stmt = connection.prepareStatement(insertQuery);
             stmt.setLong(1, adId);
             stmt.setLong(2, catId);
@@ -179,6 +175,46 @@ public class MySQLAdsDao implements Ads {
             return createAdsFromResults(stmt.executeQuery());
         }catch (SQLException e){
             throw new RuntimeException("Error finding all ads of user", e);
+        }
+    }
+
+    @Override
+    public List<Ad> getByCategory(Long categoryID) {
+        String query = "SELECT a.* FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id WHERE ac.categories_id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, categoryID);
+            return createAdsFromResults(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error get ads by category", e);
+        }
+    }
+
+    @Override
+    public List<Ad> getByMultipleCategory(List<Long> categoryID) {
+        String query = "SELECT * FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id JOIN ad_categories b on a.id = b.ad_id WHERE ";
+        String hold = "";
+        try {
+            int index = 0;
+            for (Long catId: categoryID){
+                index++;
+                if (index == 3){
+                    query = "SELECT * FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id JOIN ad_categories b on a.id = b.ad_id JOIN ad_categories c on a.id = c.ad_id " +
+                            "WHERE " + hold + " AND c.categories_id = " + catId;
+                }
+                if (index == 2) {
+                    query += " AND b.categories_id = "+ catId;
+                    hold += " AND b.categories_id = "+ catId;
+                    System.out.println(hold);
+                }if(index == 1) {
+                    query += "ac.categories_id = " + catId;
+                    hold += "ac.categories_id = " + catId;
+                }
+            }
+            PreparedStatement stmt = connection.prepareStatement(query);
+            return createAdsFromResults(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error get ads by multiple categories", e);
         }
     }
 

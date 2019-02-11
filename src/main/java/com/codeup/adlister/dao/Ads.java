@@ -24,6 +24,8 @@ public interface Ads {
     //get one ad based on id
     Ad oneAd(Long id);
     Ad oneAd(String id);
+    List<Ad> getByCategory(Long categoryID);
+    List<Ad> getByMultipleCategory(List<Long> categoryID);
     List<Ad> userAds(long user_id);
     List<Ad> searchAds(String user_search);
 }

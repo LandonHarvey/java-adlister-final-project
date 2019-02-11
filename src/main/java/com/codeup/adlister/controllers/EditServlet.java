@@ -45,23 +45,18 @@ public class EditServlet extends HttpServlet {
 
         if (!adOld.getTitle().equals(adtitle)){
             DaoFactory.getAdsDao().updateTitle(adId, adtitle);
-            System.out.println(adId);
-            System.out.println("done" + adtitle);
         }
 
         if (!adOld.getDescription().equals(addes)){
             DaoFactory.getAdsDao().updateDescription(adId, addes);
-            System.out.println(adId);
-            System.out.println("done" + addes);
         }
 
 
         if (categories != null) {
+            DaoFactory.getAdCategoriesDao().delete(adId);
             for (String name : categories) {
                 Long catId = Long.valueOf(name);
                 DaoFactory.getAdsDao().updateCategories(adId, catId);
-                System.out.println(adId);
-                System.out.println("done" + name);
             }
         }
 
