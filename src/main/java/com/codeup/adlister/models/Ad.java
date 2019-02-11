@@ -1,5 +1,6 @@
 package com.codeup.adlister.models;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,23 +10,29 @@ public class Ad {
     private long userId;
     private String title;
     private String description;
-//    private LocalDateTime created;
+    private LocalDateTime created;
     private List<String> categories;
 
-    public Ad(long id, long userId, String title, String description, List<String> categories) {
+    public Ad(long id, long userId, String title, String description, Timestamp created , List<String> categories) {
         this.id = id;
         this.userId = userId;
         this.title = title;
         this.description = description;
-//        this.created = created.toLocalDateTime();
+        this.created = created.toLocalDateTime();
         this.categories = categories;
+    }
+
+    public Ad(long userId, String title, String description, Timestamp created) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.created = created.toLocalDateTime();
     }
 
     public Ad(long userId, String title, String description) {
         this.userId = userId;
         this.title = title;
         this.description = description;
-//        this.created = created.toLocalDateTime();
     }
 
     public long getId() {
@@ -68,11 +75,11 @@ public class Ad {
         this.categories = categories;
     }
 
-//    public LocalDateTime getCreated() {
-//        return created;
-//    }
-//
-//    public void setCreated(LocalDateTime created) {
-//        this.created = created;
-//    }
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
 }

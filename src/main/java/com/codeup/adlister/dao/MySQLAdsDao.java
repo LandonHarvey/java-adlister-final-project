@@ -41,11 +41,12 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Long id, String title, String des) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description, created) VALUES (?, ?, ?, (SELECT NOW()))";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, id);
             stmt.setString(2, title);
             stmt.setString(3, des);
+            System.out.println(stmt);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -150,13 +151,14 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    // shows ads based on ad_id
     @Override
     public Ad oneAd(String id) {
         String query = "SELECT * FROM ads WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, id);
-            ResultSet rs =stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             rs.next();
             return extractAd(rs);
         }catch (SQLException e){
@@ -237,6 +239,7 @@ public class MySQLAdsDao implements Ads {
             rs.getLong("user_id"),
             rs.getString("title"),
             rs.getString("description"),
+            rs.getTimestamp("created"),
             getAdCategories(id)
         );
     }

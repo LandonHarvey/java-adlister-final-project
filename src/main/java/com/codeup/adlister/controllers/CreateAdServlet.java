@@ -42,14 +42,13 @@ public class CreateAdServlet extends HttpServlet {
             request.setAttribute("categories", categoriesList);
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
         } else {
-            System.out.println(user.getId() + title + des);
             long adid = DaoFactory.getAdsDao().insert(user.getId(), title, des);
             for (String name: categories){
                 Long catId = Long.valueOf(name);
                 DaoFactory.getAdCategoriesDao().insert(adid, catId);
             }
         Ad ad = new Ad(
-            user.getId(),// for now we'll hardcode the user id
+            user.getId(),
             request.getParameter("title"),
             request.getParameter("description")
         );

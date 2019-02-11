@@ -1,5 +1,3 @@
-USE adlister_db;
-
 DROP DATABASE adlister_db;
 
 CREATE DATABASE adlister_db;
@@ -8,6 +6,8 @@ CREATE DATABASE adlister_db;
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS ad_categories;
+
+USE adlister_db;
 
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -22,6 +22,7 @@ CREATE TABLE ads (
     user_id INT UNSIGNED NOT NULL,
     title VARCHAR(240) NOT NULL,
     description TEXT NOT NULL,
+    created TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE
@@ -41,11 +42,15 @@ CREATE TABLE ad_categories (
   FOREIGN KEY (categories_id) REFERENCES  categories(id)
 );
 
+
+INSERT INTO ads (user_id, title, description, created)
+VALUES (1,'AdminTest','Supman this is a cool test', NOW());
+
 INSERT INTO categories (category_name)
 VALUES ('computer'), ('house'), ('car');
 
 INSERT INTO ad_categories (ad_id, categories_id)
-VALUES (6,1), (6,2);
+VALUES (1,1), (1,2);
 
 SELECT * FROM ads WHERE id = '1';
 

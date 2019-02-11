@@ -20,12 +20,14 @@
     <h1>Here is your Ad!</h1>
 <%--<c:forEach var="ad" items="${ads}">--%>
     <div class="col-md-6">
-    <c:out value="${user.username}"> </c:out>
+    <span>Created By: <c:out value="${user.username}"> </c:out></span><br>
+        <span> Date Created: <c:out value="${ad.created.toString().split('T')[0]}"></c:out></span>
     <h2>${ad.title}</h2>
     <p>${ad.description}</p>
     <p>${ad.categories}</p>
     </div>
 <%--</c:forEach>--%>
 </div>
+<script type="text/javascript" src="/static/js/ad.js"></script>
 </body>
 </html>

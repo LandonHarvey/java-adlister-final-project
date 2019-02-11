@@ -53,7 +53,7 @@ public class EditServlet extends HttpServlet {
 
 
         if (categories != null) {
-            DaoFactory.getAdCategoriesDao().delete(adId);
+            DaoFactory.getAdCategoriesDao().delete(adId);   
             for (String name : categories) {
                 Long catId = Long.valueOf(name);
                 DaoFactory.getAdsDao().updateCategories(adId, catId);
