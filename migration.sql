@@ -7,6 +7,7 @@ CREATE DATABASE adlister_db;
 
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS ad_categories;
 
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -35,9 +36,9 @@ CREATE TABLE categories (
 CREATE TABLE ad_categories (
   ad_id INT UNSIGNED NOT NULL,
   categories_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (ad_id) REFERENCES ads(id),
+  FOREIGN KEY (ad_id) REFERENCES ads(id)
+    ON DELETE CASCADE,
   FOREIGN KEY (categories_id) REFERENCES  categories(id)
-    ON DELETE CASCADE
 );
 
 INSERT INTO categories (category_name)

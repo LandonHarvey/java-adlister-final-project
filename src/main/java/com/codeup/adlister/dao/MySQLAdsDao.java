@@ -74,7 +74,7 @@ public class MySQLAdsDao implements Ads {
             stmt.setString(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error creating a new ad.", e);
+            throw new RuntimeException("Error deleting ad based on id.", e);
         }
     }
 
@@ -89,7 +89,7 @@ public class MySQLAdsDao implements Ads {
             return extractAd(rs);
         }catch (SQLException e){
             e.printStackTrace();
-            throw new RuntimeException("Error finding a ad on id", e);
+            throw new RuntimeException("Error finding an ad on id", e);
         }
     }
 
@@ -140,7 +140,6 @@ public class MySQLAdsDao implements Ads {
     private List<String> createCategoriesFromResults(ResultSet rs) throws SQLException {
         List<String> categories = new ArrayList<>();
         while (rs.next()) {
-            System.out.println(rs);
             categories.add(rs.getString("category"));
         }
         return categories;

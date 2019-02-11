@@ -17,9 +17,7 @@ import java.util.List;
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //mySQLCategoryDao
         List<Category> categories = DaoFactory.getCategoriesDao().all();
-        System.out.println(categories);
         request.setAttribute("categories", categories);
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
@@ -34,12 +32,14 @@ public class CreateAdServlet extends HttpServlet {
         String des = request.getParameter("description");
         String[] categories = request.getParameterValues("categories");
 
-        boolean inputHasErrors = (title.isEmpty() || des.isEmpty());
+        boolean inputHasErrors = (title.isEmpty() || des.isEmpty() || categories == null);
 
         if (inputHasErrors) {
             request.setAttribute("error", "All fields are required.");
             request.getSession().setAttribute("title", title);
             request.getSession().setAttribute("description", des);
+            List<Category> categoriesList = DaoFactory.getCategoriesDao().all();
+            request.setAttribute("categories", categoriesList);
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
         } else {
             System.out.println(user.getId() + title + des);

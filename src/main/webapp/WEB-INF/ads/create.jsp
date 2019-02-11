@@ -21,7 +21,7 @@
                 <textarea id="description" name="description" class="form-control">${sessionScope.description}</textarea>
             </div>
             <div>
-                <label for="categories">Description</label>
+                <label for="categories">Categories</label>
                 <select name="categories" id="categories" name="categories" multiple>
                     <c:forEach var="category" items="${categories}">
                         <option value="${category.getId()}"> <c:out value="${category.getName()}"></c:out></option>
