@@ -194,7 +194,7 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> getByMultipleCategory(List<Long> categoryID) {
-        String query = "SELECT * FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id JOIN ad_categories b on a.id = b.ad_id WHERE ";
+        String query = "";
         String hold = "";
         try {
             int index = 0;
@@ -205,10 +205,11 @@ public class MySQLAdsDao implements Ads {
                             "WHERE " + hold + " AND c.categories_id = " + catId;
                 }
                 if (index == 2) {
+                    query = "SELECT * FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id JOIN ad_categories b on a.id = b.ad_id WHERE " + hold;
                     query += " AND b.categories_id = "+ catId;
                     hold += " AND b.categories_id = "+ catId;
-                    System.out.println(hold);
                 }if(index == 1) {
+                    query = "SELECT * FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id WHERE ";
                     query += "ac.categories_id = " + catId;
                     hold += "ac.categories_id = " + catId;
                 }

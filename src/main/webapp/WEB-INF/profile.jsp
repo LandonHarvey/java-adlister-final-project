@@ -5,6 +5,7 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Your Profile" />
     </jsp:include>
+    <link href="/static/css/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
@@ -19,16 +20,20 @@
 
             <c:forEach var="ad" items="${userAds}">
                 <div class="col-md-6">
-                    <h2>${ad.title}</h2>
-                    <p>${ad.description}</p>
-                    <p>${ad.categories}</p>
-                    <form action="/edit" method="get">
-                        <button name="edit" value="${ad.id}">Edit</button>
-                    </form>
-                    <form action="/delete" method="get">
-                        <button name="delete" value="${ad.id}">Delete</button>
-                    </form>
-                    <input type="hidden" name="adId" value="${sessionScope.user.id}">
+                    <div id="borderBox">
+                        <h2>${ad.title}</h2>
+                        <p>${ad.description}</p>
+                        <p>${ad.categories}</p>
+                        <div class="buttonChange">
+                            <form action="/edit" method="get">
+                                <button name="edit" value="${ad.id}">Edit</button>
+                            </form>
+                            <form action="/delete" method="get">
+                                <button name="delete" value="${ad.id}">Delete</button>
+                            </form>
+                            <input type="hidden" name="adId" value="${sessionScope.user.id}">
+                        </div>
+                    </div>
                 </div>
             </c:forEach>
         </div>

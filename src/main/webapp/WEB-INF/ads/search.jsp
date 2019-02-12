@@ -12,33 +12,39 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Viewing All The Ads" />
     </jsp:include>
-    <%--<script src=“${pageContext.request.contextPath}/static/js/search.js></script>--%>
+    <link href="/static/css/base.css" rel="stylesheet" type="text/css">
     <title>Search</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Ad Results!</h1>
-    <c:choose>
-        <c:when test="${ads != null}">
-    <c:forEach var="ad" items="${ads}">
+    <div id="searchSpecial">
+        <h1>Ad Results!</h1>
+        <c:choose>
+            <c:when test="${ads != null}">
+        <c:forEach var="ad" items="${ads}">
+            <div class="col-md-6">
+                <div id="borderBox">
+                    <h2>${ad.title}</h2>
+                    <p>${ad.description}</p>
+                    <p>${ad.categories}</p>
+                </div>
+            </div>
+        </c:forEach>
+            </c:when>
+            <c:when test="${catSearch != null}">
+                <c:forEach var="cat" items="${catSearch}">
+                    <h2>${cat.title}</h2>
+                    <p>${cat.description}</p>
+                    <p>${cat.categories}</p>
+                </c:forEach>
+            </c:when>
+        </c:choose>
+    </div>
         <div class="col-md-6">
-            <h2>${ad.title}</h2>
-            <p>${ad.description}</p>
-            <p>${ad.categories}</p>
-        </div>
-    </c:forEach>
-        </c:when>
-        <c:when test="${catSearch != null}">
-            <c:forEach var="cat" items="${catSearch}">
-                <h2>${cat.title}</h2>
-                <p>${cat.description}</p>
-                <p>${cat.categories}</p>
-            </c:forEach>
-        </c:when>
-    </c:choose>
-        <div class="col-md-6">
+            <h1>Category Search</h1>
+            <hr>
             <form name="catCheck" action="/search" method="post">
                 <c:forEach var="category" items="${categories}">
                     <input type="checkbox" name="categoryname" value="${category.getId()}" onclick="chkcontrol(${category.getId()})">${category.getName()}<br>

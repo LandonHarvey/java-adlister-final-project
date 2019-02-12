@@ -1,0 +1,13 @@
+body {
+     background-size: 1500px 850px;
+     background: black url("../img/Northern-Lights.jpg") no-repeat;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    color: whitesmoke;
+}

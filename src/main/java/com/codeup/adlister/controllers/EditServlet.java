@@ -51,22 +51,13 @@ public class EditServlet extends HttpServlet {
             DaoFactory.getAdsDao().updateDescription(adId, addes);
         }
 
-
         if (categories != null) {
             DaoFactory.getAdCategoriesDao().delete(adId);   
             for (String name : categories) {
-                Long catId = Long.valueOf(name);
+                long catId = Long.valueOf(name);
                 DaoFactory.getAdsDao().updateCategories(adId, catId);
             }
         }
-
-//        Ad ad = new Ad (
-//                adId,
-//                user.getId(),
-//                adtitle,
-//                addes
-//        );
-//        DaoFactory.getAdsDao().update(ad);
 
         response.sendRedirect("/profile");
     }

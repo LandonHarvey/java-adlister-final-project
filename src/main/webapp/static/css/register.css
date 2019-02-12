@@ -1,0 +1,10 @@
+
+body {
+    background: black url("/static/img/snow.jpg") no-repeat;
+    background-size: 1500px 850px;
+}
+
+.container {
+    background-color: white;
+    border-radius: 1.2em;
+}

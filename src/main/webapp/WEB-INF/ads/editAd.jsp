@@ -15,10 +15,12 @@
             <div>
             <label for="title">Title: </label>
             <input id="title" name="title" type="text" value="${updatedAd.title}">
+                <small id="titleRemain"><span id="titleLength">50</span> characters remaining</small>
             </div>
             <div>
             <label for="description">Description: </label>
-            <input id="description" name="description" type="text" value="${updatedAd.description}">
+                <textarea id="description" name="description" class="form-control">${updatedAd.description}</textarea>
+                <small id="desRemain"><span id="desLength">5000</span> characters remaining</small>
             <input type="hidden" name="adId" value="${editAd}">
             </div>
             <div>
@@ -33,5 +35,7 @@
         </form>
     </div>
 </div>
+
+<script type="text/javascript" src="/static/js/create.js"></script>
 </body>
 </html>

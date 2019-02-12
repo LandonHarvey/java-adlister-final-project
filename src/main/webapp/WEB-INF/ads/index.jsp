@@ -5,6 +5,7 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Viewing All The Ads" />
     </jsp:include>
+    <link href="/static/css/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
@@ -14,12 +15,14 @@
 
     <c:forEach var="ad" items="${ads}">
         <div class="col-md-6">
-            <h2><a href="/adIndividual?id=${ad.id}">${ad.title}</a></h2>
-            <p>${ad.description}</p>
-            <p>${ad.categories}</p>
+            <div id="borderBox">
+                <h2><a id="hyper" href="/adIndividual?id=${ad.id}">${ad.title}</a></h2>
+                <p>${ad.description}</p>
+                <p>${ad.categories}</p>
+                <span>Last Edited: <c:out value="${ad.created.toString().split('T')[0]}"></c:out></span>
+            </div>
         </div>
     </c:forEach>
 </div>
 </body>
 </html>
-
