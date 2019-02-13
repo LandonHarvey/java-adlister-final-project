@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.EditProfileServlet", urlPatterns = "/editProfile")
 public class EditProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("sup");
         request.getRequestDispatcher("/WEB-INF/editProfile.jsp").forward(request, response);
     }
 
@@ -32,22 +33,23 @@ public class EditProfileServlet extends HttpServlet {
         boolean inputHasErrors = username.isEmpty()
                 || Validation.stringlength(username)
                 || Validation.emailCheck(email)
+                || !Validation.isExistingEmail(email)
                 || email.isEmpty();
-
         boolean inputsHasErrors = username.isEmpty()
                 || Validation.stringlength(username)
                 || Validation.emailCheck(email)
+                || !Validation.isExistingEmail(email)
                 || email.isEmpty()
                 || Password.passlength(newpassword)
-                || Password.passlength(confirmpassword)
-                || !Password.check(username, user.getPassword());
+                || Password.passlength(confirmpassword);
 
         boolean inputPasswordEquals = confirmpassword.equals("")
-                || newpassword.equals("")
-                || oldpassword.equals("");
+                && newpassword.equals("")
+                && oldpassword.equals("");
 
 
         if (inputPasswordEquals && !inputHasErrors) {
+            System.out.println(oldpassword);
             User newUser = new User (
                     userid,
                     username,
@@ -61,9 +63,11 @@ public class EditProfileServlet extends HttpServlet {
             request.getSession().removeAttribute("confirmpassword");
             DaoFactory.getUsersDao().update(newUser);
             request.getSession().setAttribute("user", newUser);
+            System.out.println("went through 1");
             response.sendRedirect("/profile");
             return;
         }
+
 
         if (validAttempt && newpassword.equals(confirmpassword) && !inputsHasErrors){
             User newUser = new User (
@@ -74,22 +78,25 @@ public class EditProfileServlet extends HttpServlet {
             );
             DaoFactory.getUsersDao().update(newUser);
             request.getSession().setAttribute("user", newUser);
+            System.out.println("went through 2");
             response.sendRedirect("/profile");
             return;
         }
-
         if (inputsHasErrors || !inputPasswordEquals) {
             if (Validation.stringlength(username)) {
                 request.setAttribute("error", "Username must be at least 5 characters");
             }else if (Validation.emailCheck(email)) {
                 request.setAttribute("error", "Check email format");
+            }else if(!Validation.isExistingEmail(email)){
+                request.setAttribute("error", "Email Taken");
             }else if (username.isEmpty()
                     || email.isEmpty()){
                 request.setAttribute("error", "Username and Email minimum");
             }else if (Password.passlength(newpassword)
                     || Password.passlength(confirmpassword)) {
                 request.setAttribute("error", "Password Length");
-            }else if (!newpassword.equals(confirmpassword)){
+            }
+            else if (!newpassword.equals(confirmpassword)){
                 request.setAttribute("error", "Passwords dont match");
             } else {
                 request.setAttribute("error", "Please check all fields");

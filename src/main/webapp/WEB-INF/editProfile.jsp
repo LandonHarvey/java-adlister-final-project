@@ -12,36 +12,36 @@
     <jsp:include page="/WEB-INF/partials/head.jsp">
         <jsp:param name="title" value="Your Profile" />
     </jsp:include>
+    <link href="/static/css/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
-    <div class="container">
-        <div class="col-md-6">
-            <jsp:include page="partials/messages.jsp" />
+    <div class="container"  id="createAd">
+        <jsp:include page="partials/messages.jsp" />
+        <h1 id="createH">Edit Profile: </h1>
             <form action="/editProfile" method="post">
-                <div>
+                <div class="form-group">
                     <label for="username">Username: </label>
-                    <input id="username" name="username" type="text" value="${sessionScope.username}">
+                    <input class="form-control" id="username" name="username" type="text" value="${sessionScope.username}">
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="email">Email: </label>
-                    <input id="email" name="email" type="text" value="${sessionScope.email}">
+                    <input class="form-control" id="email" name="email" type="text" value="${sessionScope.email}">
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="oldpassword">Old Password: </label>
-                    <input id="oldpassword" name="oldpassword" type="text" value="${sessionScope.oldpassword}">
+                    <input class="form-control" id="oldpassword" name="oldpassword" type="text" value="${sessionScope.oldpassword}">
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="newpassword">New Password: </label>
-                    <input id="newpassword" name="newpassword" type="text" value="${sessionScope.newpassword}">
+                    <input class="form-control" id="newpassword" name="newpassword" type="text" value="${sessionScope.newpassword}">
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="confirmpassword">Confirm Password: </label>
-                    <input id="confirmpassword" name="confirmpassword" type="text" value="${sessionScope.confirmpassword}">
+                    <input class="form-control" id="confirmpassword" name="confirmpassword" type="text" value="${sessionScope.confirmpassword}">
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-block btn-primary">Submit</button>
             </form>
-        </div>
     </div>
 </body>
 </html>

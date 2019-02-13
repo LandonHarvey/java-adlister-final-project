@@ -21,7 +21,7 @@
     <h1>Here is your Ad!</h1>
 <%--<c:forEach var="ad" items="${ads}">--%>
     <div class="col-md-6">
-        <div id="borderBox">
+        <div id="borderBoxUnique">
             <h2>${ad.title}</h2>
             <p>${ad.description}</p>
             <p>${ad.categories}</p>

@@ -10,14 +10,15 @@
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
         <div class="container">
-            <h1>Welcome, ${sessionScope.user.username}!</h1>
-            <form action="/editProfile" method="get">
-                <button name="editProfile" value="${sessionScope.user}">Edit Profile</button>
-            </form>
+            <div id="titleProfile">
+                <h1>Welcome, ${sessionScope.user.username}!</h1>
+                <form action="/editProfile" method="get">
+                    <button class="btn btn-success" name="editProfile" value="${sessionScope.user}">Edit Profile</button>
+                </form>
+            </div>
         </div>
         <div class="container">
             <h1>Here are all your posted ads!</h1>
-
             <c:forEach var="ad" items="${userAds}">
                 <div class="col-md-6">
                     <div id="borderBox">
@@ -25,11 +26,11 @@
                         <p>${ad.description}</p>
                         <p>${ad.categories}</p>
                         <div class="buttonChange">
-                            <form action="/edit" method="get">
-                                <button name="edit" value="${ad.id}">Edit</button>
+                            <form action="/edit" method="get" id="spacing">
+                                <button class="btn btn-success" name="edit" value="${ad.id}">Edit</button>
                             </form>
                             <form action="/delete" method="get">
-                                <button name="delete" value="${ad.id}">Delete</button>
+                                <button class="btn btn-warning" name="delete" value="${ad.id}">Delete</button>
                             </form>
                             <input type="hidden" name="adId" value="${sessionScope.user.id}">
                         </div>

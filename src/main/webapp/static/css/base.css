@@ -1,5 +1,13 @@
+
+:root {
+    --main-color: #00b6ad;
+    --font-color:#04706b;
+    --secondary-color:#A75BFF;
+
+}
+
 body {
-    background:#00b6ad;
+    background: var(--main-color);
     font-family: 'Raleway', Arial, sans-serif;
 }
 
@@ -8,8 +16,31 @@ body {
     background: #fff;
 }
 
-select {
+#spacing {
+    margin-right: 10px;
+}
 
+.navbar-default {
+    background: transparent!important;
+    border: none!important;
+}
+
+.navbar-brand {
+    color: var(--font-color)!important;
+    font-family: 'Raleway', Arial, sans-serif!important;
+}
+
+.navbar-brand:hover {
+    color:var(--secondary-color)!important;
+}
+
+.navbar-nav>li>a {
+    color: var(--font-color)!important;
+    font-family: 'Raleway', Arial, sans-serif!important;
+}
+
+.navbar-nav>li>a:hover{
+    color:var(--secondary-color)!important
 }
 
 #searchSpecial {
@@ -17,12 +48,26 @@ select {
     flex-direction: column;
 }
 
-h1{
+h1, h2{
     color: #fff;
+}
+
+p{
+    color:#333;
 }
 
 .col-md-6 {
     padding: 0 1px;
+}
+
+#titleProfile{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.btn-success {
+    background: var(--secondary-color)!important;
 }
 
 #borderBox {
@@ -30,6 +75,29 @@ h1{
     border-radius: 10px;
     margin: 2px;
     padding-left: 3em;
+    height: 170px;
+    max-height: 170px;
+    overflow:scroll;
+}
+
+#borderBoxUnique {
+    border:white solid 2px;
+    border-radius: 10px;
+    padding: 5px 15px;
+}
+
+.glyphicon {
+    color: #fff;
+    width: 22px;
+    height: 23px;
+}
+
+#likeMachine {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 102px;
+    left: 21px;
 }
 
 #createH {
@@ -41,11 +109,7 @@ h1{
 }
 
 #hyper:hover {
-    color:#A75BFF;
-}
-
-p, h2{
-    color:#333;
+    color:var(--secondary-color);
 }
 
 .buttonChange {

@@ -16,6 +16,10 @@
     <c:forEach var="ad" items="${ads}">
         <div class="col-md-6">
             <div id="borderBox">
+                <div id="likeMachine">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </div>
                 <h2><a id="hyper" href="/adIndividual?id=${ad.id}">${ad.title}</a></h2>
                 <p>${ad.description}</p>
                 <p>${ad.categories}</p>
