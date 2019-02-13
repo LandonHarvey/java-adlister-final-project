@@ -5,6 +5,7 @@ public class DaoFactory {
     private static Users usersDao;
     private static Categories categoriesDao;
     private static AdCategories adCategoriesDao;
+    private static VoteAd adVoteDao;
     private static Config config = new Config();
 
     public static Ads getAdsDao() {
@@ -33,5 +34,12 @@ public class DaoFactory {
             adCategoriesDao = new MySQLCategoriesDao(config);
         }
         return adCategoriesDao;
+    }
+
+    public static VoteAd getAdVotesDao() {
+        if (adVoteDao == null){
+            adVoteDao = new MySQLVotesDao(config);
+        }
+        return adVoteDao;
     }
 }

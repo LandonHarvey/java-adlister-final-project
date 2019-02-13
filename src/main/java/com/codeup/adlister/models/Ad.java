@@ -1,6 +1,5 @@
 package com.codeup.adlister.models;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +11,19 @@ public class Ad {
     private String description;
     private LocalDateTime created;
     private List<String> categories;
+    private long upvote;
+    private long downvote;
+
+    public Ad(long id, long userId, String title, String description, Timestamp created , List<String> categories, long upvote, long downvote) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.created = created.toLocalDateTime();
+        this.categories = categories;
+        this.upvote = upvote;
+        this.downvote = downvote;
+    }
 
     public Ad(long id, long userId, String title, String description, Timestamp created , List<String> categories) {
         this.id = id;
@@ -81,5 +93,21 @@ public class Ad {
 
     public void setCreated(LocalDateTime created) {
         this.created = created;
+    }
+
+    public long getUpvote() {
+        return upvote;
+    }
+
+    public void setUpvote(long upvote) {
+        this.upvote = upvote;
+    }
+
+    public long getDownvote() {
+        return downvote;
+    }
+
+    public void setDownvote(long downvote) {
+        this.downvote = downvote;
     }
 }

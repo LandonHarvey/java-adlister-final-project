@@ -12,13 +12,24 @@
 
 <div class="container">
     <h1>Here Are all the ads!</h1>
-
     <c:forEach var="ad" items="${ads}">
         <div class="col-md-6">
             <div id="borderBox">
                 <div id="likeMachine">
-                    <span class="glyphicon glyphicon-chevron-up"></span>
-                    <span class="glyphicon glyphicon-chevron-down"></span>
+                    <div class="votes">
+                        <span>${ad.upvote}</span>
+                        <span>${ad.downvote}</span>
+                    </div>
+                    <div class="votes">
+                        <form action="/upvote?id=${ad.id}" method="POST">
+                            <input type="hidden" name="up" value="up" />
+                            <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+                        </form>
+                        <form action="/downvote?id=${ad.id}" method="POST">
+                            <input type="hidden" name="down" value="down" />
+                            <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                        </form>
+                    </div>
                 </div>
                 <h2><a id="hyper" href="/adIndividual?id=${ad.id}">${ad.title}</a></h2>
                 <p>${ad.description}</p>

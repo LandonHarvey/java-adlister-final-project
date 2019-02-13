@@ -241,7 +241,9 @@ public class MySQLAdsDao implements Ads {
             rs.getString("title"),
             rs.getString("description"),
             rs.getTimestamp("created"),
-            getAdCategories(id)
+            getAdCategories(id),
+            getUpvotes(id),
+            getDownvotes(id)
         );
     }
 
@@ -261,10 +263,40 @@ public class MySQLAdsDao implements Ads {
         return categories;
     }
 
+    private long addUpVotes(ResultSet rs) throws SQLException {
+        long upvotes = 0;
+        while(rs.next()){
+            upvotes++;
+        }
+        return upvotes;
+    }
+
+    private long addDownVotes(ResultSet rs) throws SQLException {
+        long downvotes = 0;
+        while(rs.next()){
+            downvotes++;
+        }
+        return downvotes;
+    }
+
     private List<String> getAdCategories(Long id) throws SQLException {
         String query = "SELECT category_name AS category FROM categories c JOIN ad_categories ac ON c.id = ac.categories_id WHERE ad_id = ?";
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setLong(1, id);
         return createCategoriesFromResults(stmt.executeQuery());
+    }
+
+    private long getUpvotes(Long id) throws SQLException {
+        String query = "SELECT * FROM vote_ad WHERE ad_id = ? AND direction = 'up'";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        return addUpVotes(stmt.executeQuery());
+    }
+
+    private long getDownvotes(Long id) throws SQLException {
+        String query = "SELECT * FROM vote_ad WHERE ad_id = ? AND direction = 'down'";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        return addDownVotes(stmt.executeQuery());
     }
 }

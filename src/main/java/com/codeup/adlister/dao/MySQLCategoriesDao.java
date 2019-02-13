@@ -27,7 +27,6 @@ public class MySQLCategoriesDao implements AdCategories{
     public List<adCategories> all() {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM ad_categories");
-
             return createAdCategoryFromResults(stmt.executeQuery());
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
@@ -58,6 +57,7 @@ public class MySQLCategoriesDao implements AdCategories{
         }
     }
 
+    // insert ad_categories
     @Override
     public Boolean insert(Long adID, Long categoryID) {
         String query = "INSERT INTO ad_categories (ad_id, categories_id) VALUES (?, ?)";
@@ -77,14 +77,14 @@ public class MySQLCategoriesDao implements AdCategories{
     //deletes a category from a certain ad
     @Override
     public Boolean delete(Long adID, Long categoryID) {
-        String query = "DELETE * FROM ad_categories WHERE ad_id = ? AND categories_id = ?";
+        String query = "DELETE FROM ad_categories WHERE ad_id = ? AND categories_id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1,adID);
             stmt.setLong(2,categoryID);
             return stmt.execute();
         }catch (SQLException e){
-            throw new RuntimeException("Error selected ad by ad_id");
+            throw new RuntimeException("Error deleting ad by ad_id and category_id");
         }
     }
 

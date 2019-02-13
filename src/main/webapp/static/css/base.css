@@ -3,7 +3,6 @@
     --main-color: #00b6ad;
     --font-color:#04706b;
     --secondary-color:#A75BFF;
-
 }
 
 body {
@@ -86,18 +85,29 @@ p{
     padding: 5px 15px;
 }
 
+.votes>form {
+    margin: 0;
+}
+
 .glyphicon {
     color: #fff;
     width: 22px;
     height: 23px;
 }
 
-#likeMachine {
+.votes {
     display: flex;
     flex-direction: column;
+    color: #fff;
+    padding-right: 3px;
+}
+
+#likeMachine {
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    bottom: 102px;
-    left: 21px;
+    bottom: 104px;
+    left: 15px;
 }
 
 #createH {
