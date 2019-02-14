@@ -19,6 +19,11 @@
     <div class="container"  id="createAd">
         <jsp:include page="partials/messages.jsp" />
         <h1 id="createH">Edit Profile: </h1>
+            <label>Upload Profile Picture</label>
+            <button onclick="openUp()" value="open" id="open">Open Picker</button>
+            <button onclick="closeUp()" value="close" id="close">Close Picker</button>
+            <div id="inline" class="picker-content"></div>
+            <div id="content"></div>
             <form action="/editProfile" method="post">
                 <div class="form-group">
                     <label for="username">Username: </label>
@@ -43,5 +48,7 @@
                 <button type="submit" class="btn btn-block btn-primary">Submit</button>
             </form>
     </div>
+<script src="//static.filestackapi.com/filestack-js/1.x.x/filestack.min.js"></script>
+<script type="text/javascript" src="/static/js/filestack.js"></script>
 </body>
 </html>

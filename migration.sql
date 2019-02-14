@@ -2,7 +2,6 @@ DROP DATABASE adlister_db;
 
 CREATE DATABASE adlister_db;
 
-
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS ad_categories;
@@ -51,4 +50,13 @@ CREATE TABLE vote_ad (
     ON DELETE CASCADE,
   FOREIGN KEY (user_id) REFERENCES users(id)
         ON DELETE CASCADE
+);
+
+CREATE TABLE profile_pic (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id INT UNSIGNED NOT NULL,
+  fileHandler VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE
 );
