@@ -180,6 +180,19 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    // shows ads liked based on user_id
+    @Override
+    public List<Ad> likedAds(long user_id){
+        String query = "SELECT * FROM vote_ad v JOIN ads ON ads.id = v.ad_id where v.user_id = ? and v.direction = 'up' and v.vote >= NOW() - INTERVAL 1 DAY;";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, user_id);
+            return createAdsFromResults(stmt.executeQuery());
+        }catch (SQLException e){
+            throw new RuntimeException("Error finding all liked ads of user", e);
+        }
+    }
+
     @Override
     public List<Ad> getByCategory(Long categoryID) {
         String query = "SELECT a.* FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id WHERE ac.categories_id = ?";

@@ -60,6 +60,25 @@ public class MySQLVotesDao implements VoteAd {
         }
     }
 
+    // select all votes given to a users ads
+    @Override
+    public long adsupvoted(long user_id) {
+        String query = "SELECT * FROM vote_ad v JOIN ads ON ads.id = v.ad_id where v.direction = 'up' and ads.user_id = ? and not v.user_id = ?";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, user_id);
+            stmt.setLong(2, user_id);
+            ResultSet rs = stmt.executeQuery();
+            long liked = 0;
+            while (rs.next()){
+                liked++;
+            }
+            return liked;
+        }catch (SQLException e) {
+            throw new RuntimeException("Error pulling all likes for user", e);
+        }
+    }
+
     // insert a vote
     @Override
     public Boolean insert(Long adId, Long userId, String direction) {
@@ -110,7 +129,7 @@ public class MySQLVotesDao implements VoteAd {
     private voteAd extractVote(ResultSet rs) throws SQLException {
         return new voteAd(
                 rs.getLong("ad_id"),
-                rs.getLong("category_id"),
+                rs.getLong("user_id"),
                 rs.getString("direction")
         );
     }

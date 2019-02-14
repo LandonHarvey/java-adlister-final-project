@@ -84,6 +84,11 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
+    public List<Ad> likedAds(long user_id) {
+        return null;
+    }
+
+    @Override
     public List<Ad> searchAds(String user_search) {
         return null;
     }

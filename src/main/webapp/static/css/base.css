@@ -10,6 +10,11 @@ body {
     font-family: 'Raleway', Arial, sans-serif;
 }
 
+.container {
+    max-height: 500px;
+    overflow: scroll;
+}
+
 #createAd {
     border-radius: 10px;
     background: #fff;
@@ -59,6 +64,10 @@ p{
     padding: 0 1px;
 }
 
+#titleProfile>h2:nth-child(3) {
+    margin-top: 0px;
+}
+
 #titleProfile{
     display: flex;
     align-items: center;
@@ -69,7 +78,7 @@ p{
     background: var(--secondary-color)!important;
 }
 
-#borderBox {
+.borderBox {
     border:white solid 2px;
     border-radius: 10px;
     margin: 2px;

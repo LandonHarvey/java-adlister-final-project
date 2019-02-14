@@ -14,7 +14,7 @@
     <h1>Here Are all the ads!</h1>
     <c:forEach var="ad" items="${ads}">
         <div class="col-md-6">
-            <div id="borderBox">
+            <div class="borderBox">
                 <div id="likeMachine">
                     <div class="votes">
                         <span>${ad.upvote}</span>

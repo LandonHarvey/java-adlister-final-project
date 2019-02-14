@@ -11,4 +11,5 @@ public interface VoteAd {
     Boolean insert(Long adId, Long userId, String direction);
     Boolean delete(Long adId, Long user_id);
     void update(Long adId, Long userId, String direction);
+    long adsupvoted(long user_id);
 }
