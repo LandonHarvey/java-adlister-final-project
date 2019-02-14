@@ -1,7 +1,9 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.dao.ProfilePic;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.profilePic;
 import com.codeup.adlister.util.Password;
 import com.codeup.adlister.util.Validation;
 
@@ -25,6 +27,8 @@ public class EditProfileServlet extends HttpServlet {
         String oldpassword = request.getParameter("oldpassword");
         String newpassword = request.getParameter("newpassword");
         String confirmpassword = request.getParameter("confirmpassword");
+        String fileHandler = request.getParameter("fileHandler");
+        System.out.println(fileHandler);
         User user = (User) request.getSession().getAttribute("user");
         long userid = user.getId();
 
@@ -47,9 +51,30 @@ public class EditProfileServlet extends HttpServlet {
                 && newpassword.equals("")
                 && oldpassword.equals("");
 
+        boolean profilePicUploaded = fileHandler != null;
+
+        if (profilePicUploaded && inputPasswordEquals && !inputHasErrors) {
+            User newUser = new User (
+                    userid,
+                    username,
+                    email,
+                    user.getPassword()
+            );
+            request.getSession().removeAttribute("username");
+            request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("oldpassword");
+            request.getSession().removeAttribute("newpassword");
+            request.getSession().removeAttribute("confirmpassword");
+            DaoFactory.getUsersDao().update(newUser);
+            DaoFactory.getProfilePicDao().delete(userid);
+            DaoFactory.getProfilePicDao().insert(userid,fileHandler);
+            request.getSession().setAttribute("user", newUser);
+            System.out.println("went through 1");
+            response.sendRedirect("/profile");
+            return;
+        }
 
         if (inputPasswordEquals && !inputHasErrors) {
-            System.out.println(oldpassword);
             User newUser = new User (
                     userid,
                     username,

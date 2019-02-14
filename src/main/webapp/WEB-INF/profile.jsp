@@ -12,6 +12,9 @@
         <div class="container">
             <div id="titleProfile">
                 <h1>Welcome, ${sessionScope.user.username}!</h1>
+                <input id="handlez" type="hidden" value="${fileHandler.fileHandler}">
+                <div id="content">
+                </div>
                 <h2>Level: <span id="level"></span></h2>
                 <h2>Fortune: <span id="likes">${totalLikes}<span id="outof"></span></span></h2>
                 <form action="/editProfile" method="get">
@@ -59,5 +62,7 @@
         </c:forEach>
     </div>
     <script type="text/javascript" src="/static/js/userLevel.js"></script>
+    <script src="//static.filestackapi.com/filestack-js/1.x.x/filestack.min.js"></script>
+    <script type="text/javascript" src="/static/js/profileShow.js"></script>
 </body>
 </html>

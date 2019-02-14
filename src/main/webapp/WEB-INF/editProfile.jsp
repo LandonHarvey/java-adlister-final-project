@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: landonharvey
-  Date: 2/7/19
-  Time: 10:45 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -23,7 +16,7 @@
             <button onclick="openUp()" value="open" id="open">Open Picker</button>
             <button onclick="closeUp()" value="close" id="close">Close Picker</button>
             <div id="inline" class="picker-content"></div>
-            <div id="content"></div>
+            <div id="content" style="display: none"></div>
             <form action="/editProfile" method="post">
                 <div class="form-group">
                     <label for="username">Username: </label>
@@ -45,6 +38,7 @@
                     <label for="confirmpassword">Confirm Password: </label>
                     <input class="form-control" id="confirmpassword" name="confirmpassword" type="text" value="${sessionScope.confirmpassword}">
                 </div>
+                <input id="fileHandler" type="hidden" name="fileHandler" value="">
                 <button type="submit" class="btn btn-block btn-primary">Submit</button>
             </form>
     </div>

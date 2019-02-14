@@ -21,10 +21,8 @@ function outOf(){
     let levelz = document.getElementById("level").innerText;
     let outOf = document.getElementById("outof");
     if (levelz === 10){
-        console.log("1");
         outOf.innerText = "/" + levelz + "00";
     } else {
-        console.log("2");
         outOf.innerText = "/" + levelz + 0;
     }
 }

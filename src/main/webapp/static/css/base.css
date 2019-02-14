@@ -15,6 +15,18 @@ body {
     overflow: scroll;
 }
 
+#content {
+    border: white solid 1px;
+    border-radius: 7px;
+    box-shadow: 0px 0 20px 1px #A75BFF;
+    width: 360px;
+    height: 250px;
+}
+
+#content>img {
+    border-radius: 7px;
+}
+
 #createAd {
     border-radius: 10px;
     background: #fff;

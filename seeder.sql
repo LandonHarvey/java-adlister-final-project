@@ -30,4 +30,8 @@ SELECT * FROM vote_ad v JOIN ads ON ads.id = v.ad_id where v.user_id = 1 and v.d
 
 SELECT * FROM vote_ad v JOIN ads ON ads.id = v.ad_id where v.direction = 'up' and ads.user_id = 1 and not v.user_id = 1;
 
+SELECT * FROM profile_pic WHERE user_id = 1;
+
 SELECT * FROM ad_categories ac JOIN ads a ON ac.ad_id = a.id JOIN ad_categories b on a.id = b.ad_id JOIN ad_categories c on a.id = c.ad_id WHERE AND c.categories_id = 3
+
+SELECT * FROM profile_pic WHERE user_id = 7;

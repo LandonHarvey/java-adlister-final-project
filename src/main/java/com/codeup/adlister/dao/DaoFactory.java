@@ -6,6 +6,7 @@ public class DaoFactory {
     private static Categories categoriesDao;
     private static AdCategories adCategoriesDao;
     private static VoteAd adVoteDao;
+    private static ProfilePic userProfilePicDao;
     private static Config config = new Config();
 
     public static Ads getAdsDao() {
@@ -20,6 +21,13 @@ public class DaoFactory {
             usersDao = new MySQLUsersDao(config);
         }
         return usersDao;
+    }
+
+    public static ProfilePic getProfilePicDao() {
+        if (userProfilePicDao == null) {
+            userProfilePicDao = new MySQLProfilePicDao(config);
+        }
+        return userProfilePicDao;
     }
 
     public static Categories getCategoriesDao() {
