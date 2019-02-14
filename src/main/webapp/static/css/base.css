@@ -48,8 +48,13 @@ body {
 }
 
 #searchSpecial {
+    margin-left: 5%;
     display: flex;
     flex-direction: column;
+}
+
+.col-md-12 {
+    padding: 0;
 }
 
 h1, h2{
@@ -78,14 +83,21 @@ p{
     background: var(--secondary-color)!important;
 }
 
-.borderBox {
+.borderBox, .borderBox2 {
     border:white solid 2px;
     border-radius: 10px;
     margin: 2px;
-    padding-left: 3em;
     height: 170px;
     max-height: 170px;
     overflow:scroll;
+}
+
+.borderBox {
+    padding-left: 3em;
+}
+
+.borderBox2 {
+    padding-left: 1em;
 }
 
 #borderBoxUnique {
@@ -119,11 +131,23 @@ p{
     left: 15px;
 }
 
+#likeMachine2{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 104px;
+    left: 15px;
+}
+
 #createH {
     color:#333;
 }
 
 #hyper {
+    color:white;
+}
+
+#hyper2 {
     color:white;
 }
 

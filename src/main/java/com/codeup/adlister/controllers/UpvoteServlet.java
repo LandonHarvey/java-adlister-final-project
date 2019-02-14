@@ -21,8 +21,14 @@ public class UpvoteServlet extends HttpServlet {
         long adId = Long.parseLong(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
         String up = request.getParameter("up");
+        String redirect = request.getParameter("redirect");
         DaoFactory.getAdVotesDao().delete(adId,user.getId());
         DaoFactory.getAdVotesDao().insert(adId,user.getId(),up);
-        response.sendRedirect("/ads");
+
+        if (redirect.contains("Individual")){
+            response.sendRedirect(redirect);
+        }else {
+            response.sendRedirect("/ads");
+        }
     }
 }

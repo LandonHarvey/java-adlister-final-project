@@ -21,8 +21,14 @@ public class DownvoteServlet extends HttpServlet {
         long adId = Long.parseLong(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
         String down = request.getParameter("down");
+        String redirect = request.getParameter("redirect");
         DaoFactory.getAdVotesDao().delete(adId,user.getId());
         DaoFactory.getAdVotesDao().insert(adId,user.getId(),down);
-        response.sendRedirect("/ads");
+        
+        if (redirect.contains("Individual")){
+            response.sendRedirect(redirect);
+        }else {
+            response.sendRedirect("/ads");
+        }
     }
 }
