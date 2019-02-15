@@ -25,10 +25,13 @@ public class UpvoteServlet extends HttpServlet {
         DaoFactory.getAdVotesDao().delete(adId,user.getId());
         DaoFactory.getAdVotesDao().insert(adId,user.getId(),up);
 
-        if (redirect.contains("Individual")){
-            response.sendRedirect(redirect);
-        }else {
+        if (redirect == null){
             response.sendRedirect("/ads");
+            return;
+        }
+        if (redirect.contains("adIndividual")){
+            System.out.println("hi");
+            response.sendRedirect(redirect);
         }
     }
 }
