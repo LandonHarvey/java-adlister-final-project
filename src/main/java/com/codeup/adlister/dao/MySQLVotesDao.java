@@ -1,5 +1,6 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.dao.Interfaces.VoteAd;
 import com.codeup.adlister.models.voteAd;
 import com.mysql.cj.jdbc.Driver;
 

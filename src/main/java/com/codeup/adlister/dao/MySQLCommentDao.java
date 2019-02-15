@@ -1,5 +1,6 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.dao.Interfaces.Comments;
 import com.codeup.adlister.models.Comment;
 import com.mysql.cj.jdbc.Driver;
 

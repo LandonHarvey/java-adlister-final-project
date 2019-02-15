@@ -1,5 +1,6 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.dao.Interfaces.ProfilePic;
 import com.codeup.adlister.models.profilePic;
 import com.mysql.cj.jdbc.Driver;
 

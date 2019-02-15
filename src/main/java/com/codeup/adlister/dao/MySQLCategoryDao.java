@@ -1,7 +1,7 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.dao.Interfaces.Categories;
 import com.codeup.adlister.models.Category;
-import com.codeup.adlister.models.adCategories;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;

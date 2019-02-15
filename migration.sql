@@ -52,6 +52,19 @@ CREATE TABLE vote_ad (
         ON DELETE CASCADE
 );
 
+CREATE TABLE vote_comment (
+  comment_id INT UNSIGNED NOT NULL,
+  user_id INT UNSIGNED NOT NULL,
+  direction ENUM('up', 'down') NOT NULL,
+  vote TIMESTAMP NOT NULL,
+  FOREIGN KEY (comment_id) REFERENCES comments(id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+
+
 CREATE TABLE profile_pic (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id INT UNSIGNED NOT NULL,

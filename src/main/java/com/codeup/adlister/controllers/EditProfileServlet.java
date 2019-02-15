@@ -1,9 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
-import com.codeup.adlister.dao.ProfilePic;
 import com.codeup.adlister.models.User;
-import com.codeup.adlister.models.profilePic;
 import com.codeup.adlister.util.Password;
 import com.codeup.adlister.util.Validation;
 

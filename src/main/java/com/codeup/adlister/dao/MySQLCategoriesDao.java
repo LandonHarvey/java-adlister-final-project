@@ -1,5 +1,6 @@
 package com.codeup.adlister.dao;
 
+import com.codeup.adlister.dao.Interfaces.AdCategories;
 import com.codeup.adlister.models.adCategories;
 import com.mysql.cj.jdbc.Driver;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLCategoriesDao implements AdCategories{
+public class MySQLCategoriesDao implements AdCategories {
     private Connection connection = null;
 
     public MySQLCategoriesDao(Config config) {
