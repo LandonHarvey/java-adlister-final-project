@@ -125,6 +125,15 @@ p{
     padding: 5px 15px;
 }
 
+.commentCSS {
+    border:var(--secondary-color) solid 2px;
+    border-radius: 10px;
+    padding: 5px 15px;
+}
+.commentCSS>p:first-of-type {
+    color: #fff;
+}
+
 .votes>form {
     margin: 0;
 }

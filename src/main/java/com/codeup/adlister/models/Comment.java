@@ -8,9 +8,18 @@ public class Comment {
     private Long user_id;
     private Long ad_id;
     private String comment;
+    private String username;
     private LocalDateTime posted;
 
     public Comment(){}
+
+    public Comment (Long user_id, Long ad_id, String comment, String username, Timestamp posted) {
+        this.user_id = user_id;
+        this.ad_id = ad_id;
+        this.comment = comment;
+        this.username = username;
+        this.posted = posted.toLocalDateTime();
+    }
 
     public Comment(Long user_id, Long ad_id, String comment, Timestamp posted){
         this.user_id = user_id;
@@ -64,5 +73,13 @@ public class Comment {
 
     public void setPosted(LocalDateTime posted) {
         this.posted = posted;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -37,7 +37,7 @@ public class MySQLCommentDao implements Comments {
     // select all comments belonging to an ad
     @Override
     public List<Comment> allByAdId(Long ad_id) {
-        String query = "SELECT * FROM comments WHERE ad_id = ?";
+        String query = "SELECT * FROM comments JOIN users u on comments.user_id = u.id  WHERE ad_id = ?";
         try{
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, ad_id);
@@ -50,12 +50,13 @@ public class MySQLCommentDao implements Comments {
     // insert a comment based on userId and adId
     @Override
     public boolean insert(Long user_id, Long ad_id, String comment) {
-        String query = "INSERT INTO comments (ad_id, user_id, comment) VALUES (?, ?, ?)";
+        String query = "INSERT INTO comments (user_id, ad_id, comment) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, user_id);
             stmt.setLong(2, ad_id);
             stmt.setString(3, comment);
+            System.out.println(stmt);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             return rs.next();
@@ -97,7 +98,9 @@ public class MySQLCommentDao implements Comments {
         return new Comment(
                 rs.getLong("user_id"),
                 rs.getLong("ad_id"),
-                rs.getString("comment")
+                rs.getString("comment"),
+                rs.getString("username"),
+                rs.getTimestamp("posted")
         );
     }
 

@@ -10,4 +10,5 @@ public interface Users {
     Long insert(User user);
     User findByAdId(String ad_id);
     void update(User user);
+    User findByCommentId (Long comment_id);
 }

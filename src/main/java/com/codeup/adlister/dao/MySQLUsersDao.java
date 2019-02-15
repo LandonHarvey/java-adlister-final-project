@@ -58,6 +58,18 @@ public class MySQLUsersDao implements Users {
     }
 
     @Override
+    public User findByCommentId (Long comment_id){
+        String query = "SELECT * FROM comments JOIN users AS u ON u.id = comments.user_id  WHERE ads.id = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, comment_id);
+            return extractUser(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error finding a user by comment id", e);
+        }
+    }
+
+    @Override
     public Long insert(User user) {
         String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
         try {

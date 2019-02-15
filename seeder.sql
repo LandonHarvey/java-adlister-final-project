@@ -12,6 +12,11 @@ VALUES (1,1), (1,2);
 INSERT INTO vote_ad (ad_id, user_id, direction, vote)
 VALUES (3,1,'up', (SELECT NOW()));
 
+INSERT INTO comments (user_id, ad_id, comment)
+VALUES (1,3,'This post is amazin!!');
+
+SELECT * FROM comments JOIN users u on comments.user_id = u.id  WHERE ad_id = 4;
+
 SELECT * FROM vote_ad WHERE ad_id = 3 AND direction = 'down';
 
 SELECT * FROM ads WHERE id = '1';

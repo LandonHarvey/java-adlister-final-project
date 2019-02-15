@@ -47,11 +47,20 @@
             <span> Last Edited: <c:out value="${ad.created.toString().split('T')[0]}"></c:out></span>
         </div>
     </div>
-    <div>
-        <hr>
+    <div class="col-md-6">
+        <c:forEach var="comment" items="${comments}">
+            <div class="commentCSS">
+                <p>${comment.username}</p>
+                <p>${comment.comment}</p>
+                <p>Last Edited: ${comment.posted.toString().split('T')[0]}</p>
+            </div>
+        </c:forEach>
         <h4>Comment: </h4>
+        <form action="/comment?id=${ad.id}" method="post" id="commentBox">
         <textarea name="comment" id="comment" cols="60" rows="3" placeholder="comment..."></textarea>
-        <button>Submit</button>
+        <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
+        <button type="submit">Post</button>
+        </form>
     </div>
 <%--</c:forEach>--%>
 </div>
