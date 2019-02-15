@@ -42,7 +42,7 @@ public class MySQLProfilePicDao implements ProfilePic {
         try{
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, user_id);
-            System.out.println(stmt.executeQuery());
+//            System.out.println(stmt.executeQuery());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return extractProfilePic(rs);
@@ -98,7 +98,7 @@ public class MySQLProfilePicDao implements ProfilePic {
 
     // extracts a Profile Pic
     private profilePic extractProfilePic(ResultSet rs) throws SQLException {
-        System.out.println(rs.getLong("user_id"));
+//        System.out.println(rs.getLong("user_id"));
         return new profilePic(
                 rs.getLong("user_id"),
                 rs.getString("fileHandler")

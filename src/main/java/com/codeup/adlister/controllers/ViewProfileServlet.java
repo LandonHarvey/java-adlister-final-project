@@ -21,7 +21,6 @@ public class ViewProfileServlet extends HttpServlet {
         request.setAttribute("userAds", DaoFactory.getAdsDao().userAds(user.getId()));
         request.setAttribute("userLiked", DaoFactory.getAdsDao().likedAds(user.getId()));
         request.setAttribute("totalLikes", DaoFactory.getAdVotesDao().adsupvoted(user.getId()));
-        System.out.println(user.getId());
         request.setAttribute("fileHandler", DaoFactory.getProfilePicDao().byUserId(user.getId()));
         request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
     }

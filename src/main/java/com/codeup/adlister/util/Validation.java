@@ -15,14 +15,11 @@ public class Validation {
 
     public static boolean isExistingUser(String username) {
         User user = DaoFactory.getUsersDao().findByUsername(username);
-        System.out.println("Username does not exist: " + (user == null));
         return user == null;
     }
 
     public static boolean isExistingEmail(String email) {
         User user = DaoFactory.getUsersDao().findByEmail(email);
-        System.out.println("Username does not exist: " + (user == null));
         return user == null;
     }
-
 }

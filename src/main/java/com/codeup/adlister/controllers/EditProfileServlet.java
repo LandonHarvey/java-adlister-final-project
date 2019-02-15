@@ -17,7 +17,6 @@ import java.io.IOException;
 @WebServlet(name = "controllers.EditProfileServlet", urlPatterns = "/editProfile")
 public class EditProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("sup");
         request.getRequestDispatcher("/WEB-INF/editProfile.jsp").forward(request, response);
     }
 
@@ -28,21 +27,21 @@ public class EditProfileServlet extends HttpServlet {
         String newpassword = request.getParameter("newpassword");
         String confirmpassword = request.getParameter("confirmpassword");
         String fileHandler = request.getParameter("fileHandler");
-        System.out.println(fileHandler);
         User user = (User) request.getSession().getAttribute("user");
         long userid = user.getId();
 
         boolean validAttempt = Password.check(oldpassword, user.getPassword());
 
+        // already the users email
+        boolean usersEmail = user.getEmail().equals(email);
+
         boolean inputHasErrors = username.isEmpty()
                 || Validation.stringlength(username)
                 || Validation.emailCheck(email)
-                || !Validation.isExistingEmail(email)
                 || email.isEmpty();
         boolean inputsHasErrors = username.isEmpty()
                 || Validation.stringlength(username)
                 || Validation.emailCheck(email)
-                || !Validation.isExistingEmail(email)
                 || email.isEmpty()
                 || Password.passlength(newpassword)
                 || Password.passlength(confirmpassword);
@@ -51,15 +50,40 @@ public class EditProfileServlet extends HttpServlet {
                 && newpassword.equals("")
                 && oldpassword.equals("");
 
-        boolean profilePicUploaded = fileHandler != null;
+        boolean profilePicUploaded = !fileHandler.equals("");
 
-        if (profilePicUploaded && inputPasswordEquals && !inputHasErrors) {
+        boolean pUploadPSEmptyUCheckECheck = profilePicUploaded && inputPasswordEquals && !inputHasErrors && (usersEmail || Validation.isExistingEmail(email));
+
+        boolean psEmptyUCheckECheck = inputPasswordEquals && !inputHasErrors && (usersEmail || Validation.isExistingEmail(email));
+
+        boolean vPasswordNCCheckAllFieldsCheckPNone = validAttempt && newpassword.equals(confirmpassword) &&
+                !inputHasErrors && (usersEmail || Validation.isExistingEmail(email));
+
+
+        // update only profile pic everything else blank
+        if (profilePicUploaded && inputHasErrors && inputPasswordEquals)
+        {
+            request.getSession().removeAttribute("username");
+            request.getSession().removeAttribute("email");
+            request.getSession().removeAttribute("oldpassword");
+            request.getSession().removeAttribute("newpassword");
+            request.getSession().removeAttribute("confirmpassword");
+            System.out.println("Profile Pic");
+            DaoFactory.getProfilePicDao().delete(userid);
+            DaoFactory.getProfilePicDao().insert(userid,fileHandler);
+            response.sendRedirect("/profile");
+            return;
+        }
+
+        // checks profile pic uploaded, passwords empty username and email given and checked
+        if (pUploadPSEmptyUCheckECheck) {
             User newUser = new User (
                     userid,
                     username,
                     email,
                     user.getPassword()
             );
+            System.out.println(1);
             request.getSession().removeAttribute("username");
             request.getSession().removeAttribute("email");
             request.getSession().removeAttribute("oldpassword");
@@ -69,18 +93,19 @@ public class EditProfileServlet extends HttpServlet {
             DaoFactory.getProfilePicDao().delete(userid);
             DaoFactory.getProfilePicDao().insert(userid,fileHandler);
             request.getSession().setAttribute("user", newUser);
-            System.out.println("went through 1");
             response.sendRedirect("/profile");
             return;
         }
 
-        if (inputPasswordEquals && !inputHasErrors) {
+        // checks profile pic not uploaded, passwords empty, username and email given and checked
+        if (psEmptyUCheckECheck) {
             User newUser = new User (
                     userid,
                     username,
                     email,
                     user.getPassword()
             );
+            System.out.println(2);
             request.getSession().removeAttribute("username");
             request.getSession().removeAttribute("email");
             request.getSession().removeAttribute("oldpassword");
@@ -88,31 +113,49 @@ public class EditProfileServlet extends HttpServlet {
             request.getSession().removeAttribute("confirmpassword");
             DaoFactory.getUsersDao().update(newUser);
             request.getSession().setAttribute("user", newUser);
-            System.out.println("went through 1");
             response.sendRedirect("/profile");
             return;
         }
 
-
-        if (validAttempt && newpassword.equals(confirmpassword) && !inputsHasErrors){
+        // all fields given and checked
+        if (vPasswordNCCheckAllFieldsCheckPNone && profilePicUploaded){
             User newUser = new User (
                     userid,
                     username,
                     email,
                     Password.hash(newpassword)
             );
+            System.out.println(3);
             DaoFactory.getUsersDao().update(newUser);
+            DaoFactory.getProfilePicDao().delete(userid);
+            DaoFactory.getProfilePicDao().insert(userid,fileHandler);
             request.getSession().setAttribute("user", newUser);
-            System.out.println("went through 2");
             response.sendRedirect("/profile");
             return;
         }
+
+        // old password and current password match, new password and confirm match, all fields given no profile pic uploaded
+        if (vPasswordNCCheckAllFieldsCheckPNone){
+            User newUser = new User (
+                    userid,
+                    username,
+                    email,
+                    Password.hash(newpassword)
+            );
+            System.out.println(4);
+            DaoFactory.getUsersDao().update(newUser);
+            request.getSession().setAttribute("user", newUser);
+            response.sendRedirect("/profile");
+            return;
+        }
+
+        // errors possible after all check
         if (inputsHasErrors || !inputPasswordEquals) {
             if (Validation.stringlength(username)) {
                 request.setAttribute("error", "Username must be at least 5 characters");
             }else if (Validation.emailCheck(email)) {
                 request.setAttribute("error", "Check email format");
-            }else if(!Validation.isExistingEmail(email)){
+            }else if(!usersEmail && !Validation.isExistingEmail(email)){
                 request.setAttribute("error", "Email Taken");
             }else if (username.isEmpty()
                     || email.isEmpty()){
