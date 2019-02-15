@@ -128,7 +128,8 @@ p{
 .commentCSS {
     border:var(--secondary-color) solid 2px;
     border-radius: 10px;
-    padding: 5px 15px;
+    padding: 5px 40px;
+    margin: 2px;
 }
 .commentCSS>p:first-of-type {
     color: #fff;
@@ -144,7 +145,19 @@ p{
     height: 23px;
 }
 
+#glyphComment {
+    width: 22px;
+    height: 7px;
+}
+
 .votes {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    padding-right: 3px;
+}
+
+.votesC {
     display: flex;
     flex-direction: column;
     color: #fff;
@@ -165,6 +178,18 @@ p{
     position: absolute;
     bottom: 104px;
     left: 15px;
+}
+
+#likeMachineC {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 37px;
+    left: 10px;
+}
+
+.commentContainer {
+    position: relative;
 }
 
 #createH {

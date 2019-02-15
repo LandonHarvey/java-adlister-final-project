@@ -49,10 +49,30 @@
     </div>
     <div class="col-md-6">
         <c:forEach var="comment" items="${comments}">
+            <div class="commentContainer">
+            <div id="likeMachineC">
+                <div class="votesC">
+                    <span>${ad.upvote}</span>
+                    <span>${ad.downvote}</span>
+                </div>
+                <div class="votesC">
+                    <form action="/upvote?id=${ad.id}" method="POST">
+                        <input type="hidden" name="up" value="up" />
+                        <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
+                        <a href="#" onclick="this.parentNode.submit()"><span id="glyphComment" class="glyphicon glyphicon-chevron-up"></span></a>
+                    </form>
+                    <form action="/downvote?id=${ad.id}" method="POST">
+                        <input type="hidden" name="down" value="down" />
+                        <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
+                        <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    </form>
+                </div>
+            </div>
             <div class="commentCSS">
                 <p>${comment.username}</p>
                 <p>${comment.comment}</p>
                 <p>Last Edited: ${comment.posted.toString().split('T')[0]}</p>
+            </div>
             </div>
         </c:forEach>
         <h4>Comment: </h4>
