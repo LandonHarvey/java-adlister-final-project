@@ -13,15 +13,20 @@ import java.io.IOException;
 @WebServlet(name = "controllers.UpvoteServlet", urlPatterns = "/upvote")
 public class UpvoteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (request.getSession().getAttribute("user") == null) {
+        String redirect = request.getParameter("redirect");
+        if (request.getSession().getAttribute("user") == null && redirect != null) {
+            request.getSession().setAttribute("redirect", redirect);
+            response.sendRedirect("/login");
+            return;
+        }else if (request.getSession().getAttribute("user") == null){
             request.getSession().setAttribute("redirect", "/ads");
             response.sendRedirect("/login");
             return;
         }
+
         long adId = Long.parseLong(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
         String up = request.getParameter("up");
-        String redirect = request.getParameter("redirect");
         DaoFactory.getAdVotesDao().delete(adId,user.getId());
         DaoFactory.getAdVotesDao().insert(adId,user.getId(),up);
 
@@ -29,8 +34,7 @@ public class UpvoteServlet extends HttpServlet {
             response.sendRedirect("/ads");
             return;
         }
-        if (redirect.contains("adIndividual")){
-            System.out.println("hi");
+        if (redirect.contains("Individual")){
             response.sendRedirect(redirect);
         }
     }

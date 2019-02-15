@@ -21,7 +21,7 @@
     <h1>Here is your Ad!</h1>
 <%--<c:forEach var="ad" items="${ads}">--%>
     <div class="col-md-6">
-        <div class="borderBox">
+        <div class="borderBox3">
             <div id="likeMachine">
                 <div class="votes">
                     <span>${ad.upvote}</span>
@@ -46,6 +46,12 @@
             <span>Created By: <c:out value="${user.username}"> </c:out></span><br>
             <span> Last Edited: <c:out value="${ad.created.toString().split('T')[0]}"></c:out></span>
         </div>
+    </div>
+    <div>
+        <hr>
+        <h4>Comment: </h4>
+        <textarea name="comment" id="comment" cols="60" rows="3" placeholder="comment..."></textarea>
+        <button>Submit</button>
     </div>
 <%--</c:forEach>--%>
 </div>

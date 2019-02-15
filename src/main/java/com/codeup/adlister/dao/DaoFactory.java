@@ -7,6 +7,7 @@ public class DaoFactory {
     private static AdCategories adCategoriesDao;
     private static VoteAd adVoteDao;
     private static ProfilePic userProfilePicDao;
+    private static Comments commentDao;
     private static Config config = new Config();
 
     public static Ads getAdsDao() {
@@ -49,5 +50,12 @@ public class DaoFactory {
             adVoteDao = new MySQLVotesDao(config);
         }
         return adVoteDao;
+    }
+
+    public static Comments getCommentDao() {
+        if (commentDao == null){
+            commentDao = new MySQLCommentDao(config);
+        }
+        return commentDao;
     }
 }

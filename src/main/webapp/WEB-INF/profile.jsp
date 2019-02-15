@@ -13,8 +13,7 @@
             <div id="titleProfile">
                 <h1>Welcome, ${sessionScope.user.username}!</h1>
                 <input id="handlez" type="hidden" value="${fileHandler.fileHandler}">
-                <div id="content">
-                </div>
+                <div id="content"></div>
                 <h2>Level: <span id="level"></span></h2>
                 <h2>Fortune: <span id="likes">${totalLikes}<span id="outof"></span></span></h2>
                 <form action="/editProfile" method="get">
