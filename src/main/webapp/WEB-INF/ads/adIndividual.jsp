@@ -72,6 +72,8 @@
                 <p>${comment.username}</p>
                 <p>${comment.comment}</p>
                 <p>Last Edited: ${comment.posted.toString().split('T')[0]}</p>
+            <c:set var="comment" value="${comment}" scope="request"/>
+            <jsp:include page="../partials/comments.jsp"/>
             </div>
             </div>
         </c:forEach>

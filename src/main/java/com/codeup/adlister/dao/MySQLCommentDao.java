@@ -2,7 +2,10 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.dao.Interfaces.Comments;
 import com.codeup.adlister.models.Comment;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mysql.cj.jdbc.Driver;
+import com.mysql.cj.x.json.JsonArray;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -38,13 +41,12 @@ public class MySQLCommentDao implements Comments {
     // select all comments belonging to an ad
     @Override
     public List<Comment> allByAdId(Long ad_id) {
-        String query = "SELECT * FROM comments JOIN users u on comments.user_id = u.id  WHERE ad_id = ?";
+        String query = "SELECT * FROM comments JOIN users u on comments.user_id = u.id  WHERE ad_id = 3 and parent_comment_id is null";
         try{
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setLong(1, ad_id);
             return createCommentsFromResults(stmt.executeQuery());
         }catch (SQLException e) {
-            throw new RuntimeException("Error pulling all votes based on adId!", e);
+            throw new RuntimeException("Error pulling all comments based on adId!", e);
         }
     }
 
@@ -96,13 +98,23 @@ public class MySQLCommentDao implements Comments {
     }
 
     private Comment extractComment(ResultSet rs) throws SQLException{
+        long id = rs.getLong("id");
         return new Comment(
                 rs.getLong("user_id"),
                 rs.getLong("ad_id"),
+                rs.getLong("parent_comment_id"),
                 rs.getString("comment"),
+                getComments(id),
                 rs.getString("username"),
                 rs.getTimestamp("posted")
         );
+    }
+
+    private List<Comment> getComments(long id) throws SQLException{
+        String query = "SELECT * FROM comments JOIN users u on comments.user_id = u.id WHERE parent_comment_id = ?";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        return createCommentsFromResults(stmt.executeQuery());
     }
 
     private List<Comment> createCommentsFromResults(ResultSet rs) throws SQLException {

@@ -5,6 +5,7 @@ CREATE DATABASE adlister_db;
 DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS ad_categories;
+DROP TABLE IF EXISTS comments;
 
 USE adlister_db;
 
@@ -78,11 +79,14 @@ CREATE TABLE comments (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id INT UNSIGNED NOT NULL,
   ad_id INT UNSIGNED NOT NULL,
+  parent_comment_id int UNSIGNED NULL DEFAULT NULL,
   comment TEXT NOT NULL,
   posted TIMESTAMP NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users(id)
     ON DELETE CASCADE,
   FOREIGN KEY (ad_id) REFERENCES ads(id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (parent_comment_id) REFERENCES comments (id)
     ON DELETE CASCADE
 );

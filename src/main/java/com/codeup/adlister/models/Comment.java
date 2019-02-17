@@ -2,12 +2,15 @@ package com.codeup.adlister.models;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Comment {
     private Long id;
     private Long user_id;
     private Long ad_id;
+    private Long parent_comment_id;
     private String comment;
+    private List<Comment> children;
     private String username;
     private LocalDateTime posted;
 
@@ -17,6 +20,16 @@ public class Comment {
         this.user_id = user_id;
         this.ad_id = ad_id;
         this.comment = comment;
+        this.username = username;
+        this.posted = posted.toLocalDateTime();
+    }
+
+    public Comment (Long user_id, Long ad_id, Long parent_comment_id, String comment, List<Comment> children, String username, Timestamp posted) {
+        this.user_id = user_id;
+        this.ad_id = ad_id;
+        this.parent_comment_id = parent_comment_id;
+        this.comment = comment;
+        this.children = children;
         this.username = username;
         this.posted = posted.toLocalDateTime();
     }
@@ -81,5 +94,21 @@ public class Comment {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<Comment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Comment> children) {
+        this.children = children;
+    }
+
+    public Long getParent_comment_id() {
+        return parent_comment_id;
+    }
+
+    public void setParent_comment_id(Long parent_comment_id) {
+        this.parent_comment_id = parent_comment_id;
     }
 }
