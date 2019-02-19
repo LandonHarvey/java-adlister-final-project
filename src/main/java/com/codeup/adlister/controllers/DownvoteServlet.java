@@ -13,6 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.DownvoteServlet", urlPatterns = "/downvote")
 public class DownvoteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        System.out.println("hello");
         String redirect = request.getParameter("redirect");
         if (request.getSession().getAttribute("user") == null && redirect != null) {
             request.getSession().setAttribute("redirect", redirect);
@@ -24,9 +25,9 @@ public class DownvoteServlet extends HttpServlet {
             return;
         }
 
-        long adId = Long.parseLong(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
         String down = request.getParameter("down");
+        Long adId = Long.parseLong(request.getParameter("adid"));
         DaoFactory.getAdVotesDao().delete(adId,user.getId());
         DaoFactory.getAdVotesDao().insert(adId,user.getId(),down);
         if (redirect == null){

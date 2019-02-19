@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "controllers.DownvoteServlet", urlPatterns = "/commentdownvote")
+@WebServlet(name = "controllers.CommentDownvoteServlet", urlPatterns = "/commentdownvote")
 public class CommentDownvoteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String redirect = request.getParameter("redirect");

@@ -81,7 +81,6 @@ public class MySQLCommentDao implements Comments {
             stmt.setLong(2, ad_id);
             stmt.setLong(3, parent_comment_id);
             stmt.setString(4, comment);
-            System.out.println(stmt);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             return rs.next();

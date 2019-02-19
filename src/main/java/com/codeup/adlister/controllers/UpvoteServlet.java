@@ -24,7 +24,7 @@ public class UpvoteServlet extends HttpServlet {
             return;
         }
 
-        long adId = Long.parseLong(request.getParameter("id"));
+        Long adId = Long.parseLong(request.getParameter("adid"));
         User user = (User) request.getSession().getAttribute("user");
         String up = request.getParameter("up");
         DaoFactory.getAdVotesDao().delete(adId,user.getId());

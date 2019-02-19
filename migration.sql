@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS ads;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS ad_categories;
 DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS admins;
+DROP TABLE IF EXISTS vote_comment;
 
 USE adlister_db;
 
@@ -16,6 +18,19 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE TABLE admins (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  level ENUM('1', '2', '3') NOT NULL,
+  jedimaster INT UNSIGNED NULL DEFAULT NULL,
+  user_id INT UNSIGNED NOT NULL,
+  created TIMESTAMP NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE,
+  FOREIGN KEY (jedimaster) REFERENCES users(id)
+    ON DELETE CASCADE
+)
 
 CREATE TABLE ads (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,

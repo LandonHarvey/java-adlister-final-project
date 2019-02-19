@@ -28,13 +28,15 @@
                     <span>${ad.downvote}</span>
                 </div>
                 <div class="votes">
-                    <form action="/upvote?id=${ad.id}" method="POST">
+                    <form action="/upvote" method="POST">
                         <input type="hidden" name="up" value="up" />
+                        <input type="hidden" name="adid" value="${ad.id}"/>
                         <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
                         <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-up"></span></a>
                     </form>
-                    <form action="/downvote?id=${ad.id}" method="POST">
+                    <form action="/downvote" method="POST">
                         <input type="hidden" name="down" value="down" />
+                        <input type="hidden" name="adid" value="${ad.id}" />
                         <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
                         <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-down"></span></a>
                     </form>
