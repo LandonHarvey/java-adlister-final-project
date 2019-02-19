@@ -24,6 +24,16 @@ public class Comment {
         this.posted = posted.toLocalDateTime();
     }
 
+    public Comment (Long id, Long user_id, Long ad_id, Long parent_comment_id, String comment, List<Comment> children, String username, Timestamp posted) {
+        this.id = id;
+        this.user_id = user_id;
+        this.ad_id = ad_id;
+        this.parent_comment_id = parent_comment_id;
+        this.comment = comment;
+        this.children = children;
+        this.username = username;
+        this.posted = posted.toLocalDateTime();
+    }
     public Comment (Long user_id, Long ad_id, Long parent_comment_id, String comment, List<Comment> children, String username, Timestamp posted) {
         this.user_id = user_id;
         this.ad_id = ad_id;

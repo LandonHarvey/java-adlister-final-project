@@ -11,6 +11,8 @@ public interface Comments {
     List<Comment> allByAdId(Long ad_id);
     // insert a new comment
     boolean insert(Long user_id, Long ad_id ,String comment);
+    // insert a new child comment
+    boolean insert(Long user_id, Long ad_id, Long parent_comment_id, String comment);
     // update an existing ad
     void update(Long user_Id, Long ad_Id, String comment);
     // delete comment

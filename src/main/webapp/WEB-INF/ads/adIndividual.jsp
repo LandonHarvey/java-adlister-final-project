@@ -45,6 +45,7 @@
             <p>${ad.categories}</p>
             <span>Created By: <c:out value="${user.username}"> </c:out></span><br>
             <span> Last Edited: <c:out value="${ad.created.toString().split('T')[0]}"></c:out></span>
+            <button class="buttonRestyle" value="${child.getId()}" onclick="updateComment()"><span class="glyphicon glyphicon-comment"></span></button>
         </div>
     </div>
     <div class="col-md-6">
@@ -52,16 +53,16 @@
             <div class="commentContainer">
             <div id="likeMachineC">
                 <div class="votesC">
-                    <span>${ad.upvote}</span>
-                    <span>${ad.downvote}</span>
+                    <span>${comment.upvote}</span>
+                    <span>${comment.downvote}</span>
                 </div>
                 <div class="votesC">
-                    <form action="/upvote?id=${ad.id}" method="POST">
+                    <form action="/upvote?id=${comment.id}" method="POST">
                         <input type="hidden" name="up" value="up" />
                         <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
                         <a href="#" onclick="this.parentNode.submit()"><span id="glyphComment" class="glyphicon glyphicon-chevron-up"></span></a>
                     </form>
-                    <form action="/downvote?id=${ad.id}" method="POST">
+                    <form action="/downvote?id=${comment.id}" method="POST">
                         <input type="hidden" name="down" value="down" />
                         <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
                         <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-down"></span></a>
@@ -71,16 +72,19 @@
             <div class="commentCSS">
                 <p>${comment.username}</p>
                 <p>${comment.comment}</p>
-                <p>Last Edited: ${comment.posted.toString().split('T')[0]}</p>
+                <span>Last Edited: ${comment.posted.toString().split('T')[0]}</span>
+                <button class="buttonRestyle" value="${comment.getId()}" onclick="updateComment()"><span class="glyphicon glyphicon-comment"></span></button>
             <c:set var="comment" value="${comment}" scope="request"/>
             <jsp:include page="../partials/comments.jsp"/>
             </div>
             </div>
         </c:forEach>
         <h4>Comment: </h4>
+        <a href="#comment"></a>
         <form action="/comment?id=${ad.id}" method="post" id="commentBox">
         <textarea name="comment" id="comment" cols="60" rows="3" placeholder="comment..."></textarea>
-        <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
+        <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}"/>
+        <input id="parentComment" type="hidden" name="parentSent" value=""/>
         <button type="submit">Post</button>
         </form>
     </div>

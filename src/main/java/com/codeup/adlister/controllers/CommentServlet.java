@@ -24,18 +24,30 @@ public class CommentServlet extends HttpServlet {
             return;
         }
 
-        long adId = Long.parseLong(request.getParameter("id"));
         User user = (User) request.getSession().getAttribute("user");
         String comment = request.getParameter("comment");
-        DaoFactory.getCommentDao().insert(user.getId(),adId,comment);
-
-        if (redirect == null){
-            response.sendRedirect("/ads");
-            return;
+        long adId = Long.parseLong(request.getParameter("id"));
+        if ((request.getParameter("parentSent") == null || (request.getParameter("parentSent").equals("")))) {
+            DaoFactory.getCommentDao().insert(user.getId(),adId,comment);
+            if (redirect == null){
+                response.sendRedirect("/ads");
+                return;
+            }
+            if (redirect.contains("Individual")){
+                response.sendRedirect(redirect);
+                return;
+            }
+        }else if ((request.getParameter("parentSent") != null)){
+            long parentComment = Long.parseLong(request.getParameter("parentSent"));
+            DaoFactory.getCommentDao().insert(user.getId(),adId, parentComment,comment);
+            if (redirect == null){
+                response.sendRedirect("/ads");
+                return;
+            }
+            if (redirect.contains("Individual")){
+                response.sendRedirect(redirect);
+                return;
+            }
         }
-        if (redirect.contains("Individual")){
-            response.sendRedirect(redirect);
-        }
-        System.out.println(comment);
     }
 }

@@ -40,10 +40,13 @@ public class MySQLCommentDao implements Comments {
 
     // select all comments belonging to an ad
     @Override
+
+    //TODO: fix ad_id
     public List<Comment> allByAdId(Long ad_id) {
-        String query = "SELECT * FROM comments JOIN users u on comments.user_id = u.id  WHERE ad_id = 3 and parent_comment_id is null";
+        String query = "SELECT * FROM comments JOIN users u on comments.user_id = u.id  WHERE ad_id = ? and parent_comment_id is null";
         try{
             PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, ad_id);
             return createCommentsFromResults(stmt.executeQuery());
         }catch (SQLException e) {
             throw new RuntimeException("Error pulling all comments based on adId!", e);
@@ -59,6 +62,25 @@ public class MySQLCommentDao implements Comments {
             stmt.setLong(1, user_id);
             stmt.setLong(2, ad_id);
             stmt.setString(3, comment);
+            System.out.println(stmt);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error inserting comment", e);
+        }
+    }
+
+    // insert a comment based on userId and adId and parent
+    @Override
+    public boolean insert(Long user_id, Long ad_id, Long parent_comment_id, String comment) {
+        String query = "INSERT INTO comments (user_id, ad_id, parent_comment_id, comment) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, user_id);
+            stmt.setLong(2, ad_id);
+            stmt.setLong(3, parent_comment_id);
+            stmt.setString(4, comment);
             System.out.println(stmt);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
@@ -100,6 +122,7 @@ public class MySQLCommentDao implements Comments {
     private Comment extractComment(ResultSet rs) throws SQLException{
         long id = rs.getLong("id");
         return new Comment(
+                rs.getLong("id"),
                 rs.getLong("user_id"),
                 rs.getLong("ad_id"),
                 rs.getLong("parent_comment_id"),
