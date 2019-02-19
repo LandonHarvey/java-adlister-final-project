@@ -129,7 +129,9 @@ public class MySQLCommentDao implements Comments {
                 rs.getString("comment"),
                 getComments(id),
                 rs.getString("username"),
-                rs.getTimestamp("posted")
+                rs.getTimestamp("posted"),
+                getUpvotes(id),
+                getDownvotes(id)
         );
     }
 
@@ -138,6 +140,36 @@ public class MySQLCommentDao implements Comments {
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setLong(1, id);
         return createCommentsFromResults(stmt.executeQuery());
+    }
+
+    private long addUpVotes(ResultSet rs) throws SQLException {
+        long upvotes = 0;
+        while(rs.next()){
+            upvotes++;
+        }
+        return upvotes;
+    }
+
+    private long addDownVotes(ResultSet rs) throws SQLException {
+        long downvotes = 0;
+        while(rs.next()){
+            downvotes++;
+        }
+        return downvotes;
+    }
+
+    private long getUpvotes(Long id) throws SQLException {
+        String query = "SELECT * FROM vote_comment WHERE comment_id = ? AND direction = 'up'";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        return addUpVotes(stmt.executeQuery());
+    }
+
+    private long getDownvotes(Long id) throws SQLException {
+        String query = "SELECT * FROM vote_comment WHERE comment_id = ? AND direction = 'down'";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        return addDownVotes(stmt.executeQuery());
     }
 
     private List<Comment> createCommentsFromResults(ResultSet rs) throws SQLException {

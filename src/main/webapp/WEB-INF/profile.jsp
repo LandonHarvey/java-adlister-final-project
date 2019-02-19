@@ -8,9 +8,12 @@
     <link href="/static/css/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+<c:choose>
+    <c:when test="${tempUser == null}">
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
         <div class="container">
-            <div id="titleProfile">
+            <div class="titleProfile">
                 <h1>Welcome, ${sessionScope.user.username}!</h1>
                 <input id="handlez" type="hidden" value="${fileHandler.fileHandler}">
                 <div id="content"></div>
@@ -30,7 +33,7 @@
                         <p>${ad.description}</p>
                         <p>${ad.categories}</p>
                         <div class="buttonChange">
-                            <form action="/edit" method="get" id="spacing">
+                            <form action="/edit" method="get" class="spacing">
                                 <button class="btn btn-success" name="edit" value="${ad.id}">Edit</button>
                             </form>
                             <form action="/delete" method="get">
@@ -60,6 +63,46 @@
             </div>
         </c:forEach>
     </div>
+    </c:when>
+
+    <c:when test="${tempUser != null}">
+        <jsp:include page="/WEB-INF/partials/navbar.jsp" />
+        <div class="container">
+            <div class="titleProfile">
+                <h1>${temp.username} Profile!</h1>
+                <input id="handlez" type="hidden" value="${fileHandler.fileHandler}">
+                <div id="content"></div>
+                <h2>Level: <span id="level"></span></h2>
+                <h2>Fortune: <span id="likes">${totalLikes}<span id="outof"></span></span></h2>
+            </div>
+        </div>
+        <div class="container">
+            <h1>Here are all ${tempUser.username}'s posted ads!</h1>
+            <c:forEach var="ad" items="${tempUserAds}">
+                <div class="col-md-6">
+                    <div class="borderBox">
+                        <h2>${ad.title}</h2>
+                        <p>${ad.description}</p>
+                        <p>${ad.categories}</p>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="container">
+            <h1>Liked Ads Last 24 Hours!</h1>
+            <c:forEach var="ad" items="${tempUserLiked}">
+                <div class="col-md-6">
+                    <div class="borderBox">
+                        <h2>${ad.title}</h2>
+                        <p>${ad.description}</p>
+                        <p>${ad.categories}</p>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </c:when>
+
+</c:choose>
     <script type="text/javascript" src="/static/js/userLevel.js"></script>
     <script src="//static.filestackapi.com/filestack-js/1.x.x/filestack.min.js"></script>
     <script type="text/javascript" src="/static/js/profileShow.js"></script>

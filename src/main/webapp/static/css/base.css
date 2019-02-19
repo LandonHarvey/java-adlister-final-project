@@ -32,7 +32,7 @@ body {
     background: #fff;
 }
 
-#spacing {
+.spacing {
     margin-right: 10px;
 }
 
@@ -81,11 +81,11 @@ p{
     padding: 0 1px;
 }
 
-#titleProfile>h2:nth-child(3) {
+.titleProfile>h2:nth-child(3) {
     margin-top: 0px;
 }
 
-#titleProfile{
+.titleProfile{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -126,7 +126,7 @@ p{
 
 .borderBox4:after {
     content: '';
-    height: 90%;
+    height: 97%;
     width: 1px;
     position: absolute;
     left: -8px;
@@ -175,9 +175,8 @@ background-color: var(--secondary-color);
 
 .votesC {
     display: flex;
-    flex-direction: column;
     color: #fff;
-    padding-right: 3px;
+    padding-right: .6em;
 }
 
 #likeMachine {
@@ -199,9 +198,11 @@ background-color: var(--secondary-color);
 #likeMachineC {
     display: flex;
     flex-direction: row;
-    position: absolute;
-    bottom: 37px;
-    left: 10px;
+}
+
+.voteLine {
+    display: flex;
+    height: 1.2em;
 }
 
 .commentContainer {
@@ -236,7 +237,7 @@ background-color: var(--secondary-color);
     background: none;
     color: inherit;
     border: none;
-    padding: 0;
+    padding: 0 .6em;
     font: inherit;
     cursor: pointer;
     outline: inherit;

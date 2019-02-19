@@ -13,29 +13,30 @@
 <ul>
     <c:forEach var="child" items="${comment.getChildren()}">
         <div class="borderBox4">
-            <div id="likeMachine">
-                <div class="votes">
-                    <span>${child.upvote}</span>
-                    <span>${child.downvote}</span>
-                </div>
-                <div class="votes">
-                    <form action="/upvote?id=${child.id}" method="POST">
+            <p><a href="/profile?id=${child.username}">${child.username}</a></p>
+            <p>${child.comment}</p>
+            <input id="parent" type="hidden" name="parent"/>
+            <div class="voteLine">
+            <span>Last Edited: ${child.posted.toString().split('T')[0]}</span>
+            <button class="buttonRestyle" onclick="updateComment(${child.id})"><span class="glyphicon glyphicon-comment"></span></button>
+            <span id="likeMachineC">
+                <div class="votesC">
+                    <form action="/commentupvote?id=${child.id}" method="POST">
                         <input type="hidden" name="up" value="up" />
                         <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
                         <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-up"></span></a>
                     </form>
-                    <form action="/downvote?id=${child.id}" method="POST">
+                    <div class="votesC">
+                        <span>${child.upvote - child.downvote}</span>
+                    </div>
+                    <form action="/commentdownvote?id=${child.id}" method="POST">
                         <input type="hidden" name="down" value="down" />
                         <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}" />
                         <a href="#" onclick="this.parentNode.submit()"><span class="glyphicon glyphicon-chevron-down"></span></a>
                     </form>
                 </div>
+            </span>
             </div>
-            <p>${child.username}</p>
-            <p>${child.comment}</p>
-            <input id="parent" type="hidden" name="parent"/>
-            <span>Last Edited: ${child.posted.toString().split('T')[0]}</span>
-            <button class="buttonRestyle" value="${child.getId()}" onclick="updateComment()"><span class="glyphicon glyphicon-comment"></span></button>
         </div>
             <c:set var="comment" value="${child}" scope="request"/>
             <jsp:include page="../partials/comments.jsp"/>

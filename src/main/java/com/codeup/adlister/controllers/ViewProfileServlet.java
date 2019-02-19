@@ -17,12 +17,25 @@ public class ViewProfileServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-        User user = (User) request.getSession().getAttribute("user");
-        request.setAttribute("userAds", DaoFactory.getAdsDao().userAds(user.getId()));
-        request.setAttribute("userLiked", DaoFactory.getAdsDao().likedAds(user.getId()));
-        request.setAttribute("totalLikes", DaoFactory.getAdVotesDao().adsupvoted(user.getId()));
-        request.setAttribute("fileHandler", DaoFactory.getProfilePicDao().byUserId(user.getId()));
-        request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+
+        if (request.getParameter("id") != null) {
+            String username = request.getParameter("id");
+            User temp = DaoFactory.getUsersDao().findByUsername(username);
+            System.out.println(username);
+            request.setAttribute("tempUser", DaoFactory.getUsersDao().findByUsername(username));
+            request.setAttribute("tempUserAds", DaoFactory.getAdsDao().userAds(temp.getId()));
+            request.setAttribute("tempUserLiked", DaoFactory.getAdsDao().likedAds(temp.getId()));
+            request.setAttribute("totalLikes", DaoFactory.getAdVotesDao().adsupvoted(temp.getId()));
+            request.setAttribute("fileHandler", DaoFactory.getProfilePicDao().byUserId(temp.getId()));
+            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+        }else {
+            User user = (User) request.getSession().getAttribute("user");
+            request.setAttribute("userAds", DaoFactory.getAdsDao().userAds(user.getId()));
+            request.setAttribute("userLiked", DaoFactory.getAdsDao().likedAds(user.getId()));
+            request.setAttribute("totalLikes", DaoFactory.getAdVotesDao().adsupvoted(user.getId()));
+            request.setAttribute("fileHandler", DaoFactory.getProfilePicDao().byUserId(user.getId()));
+            request.getRequestDispatcher("/WEB-INF/profile.jsp").forward(request, response);
+        }
     }
 }
 

@@ -64,8 +64,6 @@ CREATE TABLE vote_comment (
         ON DELETE CASCADE
 );
 
-
-
 CREATE TABLE profile_pic (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   user_id INT UNSIGNED NOT NULL,

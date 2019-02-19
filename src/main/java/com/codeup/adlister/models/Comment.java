@@ -13,6 +13,8 @@ public class Comment {
     private List<Comment> children;
     private String username;
     private LocalDateTime posted;
+    private long upvote;
+    private long downvote;
 
     public Comment(){}
 
@@ -24,7 +26,7 @@ public class Comment {
         this.posted = posted.toLocalDateTime();
     }
 
-    public Comment (Long id, Long user_id, Long ad_id, Long parent_comment_id, String comment, List<Comment> children, String username, Timestamp posted) {
+    public Comment (Long id, Long user_id, Long ad_id, Long parent_comment_id, String comment, List<Comment> children, String username, Timestamp posted, long upvote, long downvote) {
         this.id = id;
         this.user_id = user_id;
         this.ad_id = ad_id;
@@ -33,6 +35,8 @@ public class Comment {
         this.children = children;
         this.username = username;
         this.posted = posted.toLocalDateTime();
+        this.upvote = upvote;
+        this.downvote = downvote;
     }
     public Comment (Long user_id, Long ad_id, Long parent_comment_id, String comment, List<Comment> children, String username, Timestamp posted) {
         this.user_id = user_id;
@@ -120,5 +124,21 @@ public class Comment {
 
     public void setParent_comment_id(Long parent_comment_id) {
         this.parent_comment_id = parent_comment_id;
+    }
+
+    public long getUpvote() {
+        return upvote;
+    }
+
+    public void setUpvote(long upvote) {
+        this.upvote = upvote;
+    }
+
+    public long getDownvote() {
+        return downvote;
+    }
+
+    public void setDownvote(long downvote) {
+        this.downvote = downvote;
     }
 }
