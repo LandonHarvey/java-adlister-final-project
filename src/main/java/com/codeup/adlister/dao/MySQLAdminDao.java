@@ -2,6 +2,7 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.dao.Interfaces.Admin;
 import com.codeup.adlister.models.admin;
+import com.codeup.adlister.util.Password;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -30,6 +31,19 @@ public class MySQLAdminDao implements Admin {
             return createAdminsFromResults(stmt.executeQuery());
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ads.", e);
+        }
+    }
+
+    // String Version
+    @Override
+    public List<admin> allString() {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT u.username AS 'jedimaster', u2.username, a.level AS 'level' FROM admins AS a\n" +
+                    "JOIN users u on a.jedimaster = u.id\n" +
+                    "JOIN users u2 on a.user_id = u2.id");
+            return createStringAdminsFromResults(stmt.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving all admins.", e);
         }
     }
 
@@ -109,10 +123,26 @@ public class MySQLAdminDao implements Admin {
         );
     }
 
+    private admin extractStringAdmin(ResultSet rs) throws SQLException{
+        return new admin(
+                rs.getString("jedimaster"),
+                rs.getString("username"),
+                rs.getString("level")
+        );
+    }
+
     private List<admin> createAdminsFromResults(ResultSet rs) throws SQLException {
         List<admin> c = new ArrayList<>();
         while (rs.next()) {
             c.add(extractAdmin(rs));
+        }
+        return c;
+    }
+
+    private List<admin> createStringAdminsFromResults(ResultSet rs) throws SQLException {
+        List<admin> c = new ArrayList<>();
+        while (rs.next()) {
+            c.add(extractStringAdmin(rs));
         }
         return c;
     }

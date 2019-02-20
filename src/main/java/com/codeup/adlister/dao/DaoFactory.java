@@ -12,6 +12,8 @@ public class DaoFactory {
     private static CommentVote commentVoteDao;
     private static ProfilePic userProfilePicDao;
     private static Comments commentDao;
+    private static Report reportDao;
+    private static Offense offfenseDao;
     private static Config config = new Config();
 
     public static Ads getAdsDao() {
@@ -75,5 +77,19 @@ public class DaoFactory {
             commentDao = new MySQLCommentDao(config);
         }
         return commentDao;
+    }
+
+    public static Report getReportDao() {
+        if (reportDao == null){
+            reportDao = new MySQLReportDao(config);
+        }
+        return reportDao;
+    }
+
+    public static Offense getOfffenseDao() {
+        if (offfenseDao == null){
+            offfenseDao = new MySQLOffenseDao(config);
+        }
+        return offfenseDao;
     }
 }

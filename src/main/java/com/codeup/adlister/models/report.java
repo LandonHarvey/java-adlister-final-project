@@ -10,30 +10,33 @@ public class report {
     private Long user_reported_id;
     private Long ad_id;
     private Long comment_id;
+    private String username;
+    private String offense_name;
+    private String offender;
+    private String title;
+    private String created;
     private String description;
-    private LocalDateTime created;
 
     public report(){}
 
-    public report(Long user_id, Long offense, Long user_reported_id, String description){
+    public report(Long id,Long user_id, Long offense, Long user_reported_id, Long comment_id, Long  ad_id,String description){
+        this.id = id;
         this.user_id = user_id;
         this.offense =offense;
         this.user_reported_id = user_reported_id;
-        this.description = description;
-    }
-
-    public report(Long user_id, Long offense, String description, Long ad_id){
-        this.user_id = user_id;
-        this.offense = offense;
+        this.comment_id = comment_id;
         this.ad_id = ad_id;
         this.description = description;
     }
 
-    public report( String description, Long user_id, Long offense, Long comment_id){
-        this.user_id = user_id;
-        this.offense = offense;
-        this.comment_id = comment_id;
+    public report(Long id, String username,String offense_name, String description, String offender, String title, String created){
+        this.id = id;
+        this.username = username;
+        this.offense_name = offense_name;
         this.description = description;
+        this.offender = offender;
+        this.title = title;
+        this.created = created;
     }
 
     public Long getId() {
@@ -92,11 +95,43 @@ public class report {
         this.description = description;
     }
 
-    public LocalDateTime getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(String created) {
         this.created = created;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getOffender() {
+        return offender;
+    }
+
+    public void setOffender(String offender) {
+        this.offender = offender;
+    }
+
+    public String getOffense_name() {
+        return offense_name;
+    }
+
+    public void setOffense_name(String offense_name) {
+        this.offense_name = offense_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

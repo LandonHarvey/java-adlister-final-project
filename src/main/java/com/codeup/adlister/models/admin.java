@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 public class admin {
     private long id;
     private long jedimaster;
+    private String master;
+    private String username;
     private long user_id;
     private String password;
     private LocalDateTime created;
@@ -19,6 +21,12 @@ public class admin {
         this.user_id = user_id;
         this.level = level;
         setPassword(password);
+    }
+
+    public admin (String jedimaster, String username, String level){
+        this.master = jedimaster;
+        this.username = username;
+        this.level = level;
     }
 
     public long getId() {
@@ -67,5 +75,21 @@ public class admin {
 
     public void setPassword(String password) {
         this.password = Password.hash(password);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getMaster() {
+        return master;
+    }
+
+    public void setMaster(String master) {
+        this.master = master;
     }
 }

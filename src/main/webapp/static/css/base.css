@@ -10,6 +10,19 @@ body {
     font-family: 'Raleway', Arial, sans-serif;
 }
 
+.adminReports {
+    display: flex;
+    justify-content: space-between;
+    border: var(--secondary-color) solid 1px;
+}
+
+.adminReports > h3 {
+    font-size: 24px;
+    max-width: 6em;
+    max-height: 1.8em;
+    overflow: scroll;
+}
+
 .container {
     max-height: 500px;
     overflow: scroll;
@@ -18,7 +31,7 @@ body {
 #content {
     border: white solid 1px;
     border-radius: 7px;
-    box-shadow: 0px 0 20px 1px #A75BFF;
+    box-shadow: 0px 0 20px 1px var(--secondary-color);
     width: 360px;
     height: 250px;
 }

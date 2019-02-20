@@ -6,7 +6,8 @@ public class offense {
 
     public offense(){}
 
-    public offense(String offense_name){
+    public offense( Long id,String offense_name){
+        this.id = id;
         this.offense_name = offense_name;
     }
 

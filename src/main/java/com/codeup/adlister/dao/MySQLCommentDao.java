@@ -106,12 +106,11 @@ public class MySQLCommentDao implements Comments {
 
     // delete comment based on userId and adId
     @Override
-    public Boolean delete(Long user_id, Long ad_id) {
-        String query = "DELETE FROM vote_ad  WHERE user_id = ? AND ad_id = ?";
+    public Boolean delete(Long comment_id) {
+        String query = "DELETE FROM comments WHERE id = ?";
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setLong(1, ad_id);
-            stmt.setLong(2, user_id);
+            stmt.setLong(1, comment_id);
             return stmt.execute();
         }catch (SQLException e){
             throw new RuntimeException("Error deleting a vote by ad_id, user_id");

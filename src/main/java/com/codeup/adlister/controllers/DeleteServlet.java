@@ -15,6 +15,14 @@ import java.io.IOException;
 public class DeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String deleteAd = request.getParameter("delete");
+        if (request.getParameter("deleteReport") != null){
+            Long deleteReport = Long.parseLong(request.getParameter("deleteReport"));
+            DaoFactory.getReportDao().delete(deleteReport);
+        }
+        if (request.getParameter("deleteComment") != null){
+            Long deleteComment = Long.parseLong(request.getParameter("deleteComment"));
+            DaoFactory.getCommentDao().delete(deleteComment);
+        }
         DaoFactory.getAdsDao().delete(deleteAd);
         response.sendRedirect("/profile");
     }

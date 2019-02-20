@@ -29,7 +29,7 @@
             <c:forEach var="ad" items="${userAds}">
                 <div class="col-md-6">
                     <div class="borderBox">
-                        <h2>${ad.title}</h2>
+                        <a href="/adIndividual?id=${ad.id}"><h2>${ad.title}</h2></a>
                         <p>${ad.description}</p>
                         <p>${ad.categories}</p>
                         <div class="buttonChange">
@@ -50,7 +50,7 @@
         <c:forEach var="ad" items="${userLiked}">
             <div class="col-md-6">
                 <div class="borderBox">
-                    <h2>${ad.title}</h2>
+                    <a href="/adIndividual?id=${ad.id}"><h2>${ad.title}</h2></a>
                     <p>${ad.description}</p>
                     <p>${ad.categories}</p>
                     <div class="buttonChange">

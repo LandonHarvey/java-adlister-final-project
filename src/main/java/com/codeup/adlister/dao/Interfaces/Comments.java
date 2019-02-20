@@ -16,5 +16,5 @@ public interface Comments {
     // update an existing ad
     void update(Long user_Id, Long ad_Id, String comment);
     // delete comment
-    Boolean delete(Long user_id, Long ad_id);
+    Boolean delete(Long comment_id);
 }

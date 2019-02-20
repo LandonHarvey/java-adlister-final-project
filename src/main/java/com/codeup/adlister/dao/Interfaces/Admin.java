@@ -7,6 +7,8 @@ import java.util.List;
 public interface Admin {
     // get a list of all the ads
     List<admin> all();
+    // String
+    List<admin> allString();
     // get whether user is admin
     admin isAdmin(long id);
     // insert a new admin and return the new admins id
