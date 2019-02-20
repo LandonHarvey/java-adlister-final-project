@@ -5,6 +5,7 @@ import com.codeup.adlister.dao.Interfaces.*;
 public class DaoFactory {
     private static Ads adsDao;
     private static Users usersDao;
+    private static Admin adminsDao;
     private static Categories categoriesDao;
     private static AdCategories adCategoriesDao;
     private static VoteAd adVoteDao;
@@ -25,6 +26,13 @@ public class DaoFactory {
             usersDao = new MySQLUsersDao(config);
         }
         return usersDao;
+    }
+
+    public static Admin getAdminsDao() {
+        if (adminsDao == null) {
+            adminsDao = new MySQLAdminDao(config);
+        }
+        return adminsDao;
     }
 
     public static ProfilePic getProfilePicDao() {

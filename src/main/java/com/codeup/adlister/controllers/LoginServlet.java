@@ -2,7 +2,9 @@ package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.admin;
 import com.codeup.adlister.util.Password;
+import com.codeup.adlister.util.Validation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,19 +31,26 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = DaoFactory.getUsersDao().findByUsername(username);
         String redirect = (String) request.getSession().getAttribute("redirect");
-
         if (user == null) {
             request.getSession().setAttribute("invalid", true);
             response.sendRedirect("/login");
             return;
         }
 
+        int level = 0;
+        admin adminLevel = Validation.isUserAdmin(user.getId());
+        if (adminLevel != null) {
+            level = Integer.valueOf(adminLevel.getLevel());
+        }
+
         boolean validAttempt = Password.check(password, user.getPassword());
 
         if (validAttempt && redirect != null) {
+            request.getSession().setAttribute("admin", adminLevel);
             request.getSession().setAttribute("user", user);
             response.sendRedirect(redirect);
         } else if (validAttempt){
+            request.getSession().setAttribute("admin", adminLevel);
             request.getSession().setAttribute("user", user);
             response.sendRedirect("/profile");
         }

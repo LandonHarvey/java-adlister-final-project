@@ -119,7 +119,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-
+    // delete Ad
     @Override
     public void delete(String id) {
         try {
@@ -138,7 +138,7 @@ public class MySQLAdsDao implements Ads {
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
-            ResultSet rs =stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             rs.next();
             return extractAd(rs);
         }catch (SQLException e){

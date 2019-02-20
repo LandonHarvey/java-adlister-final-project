@@ -24,5 +24,7 @@ VALUES (1,3,2,'Sup WINNER');
 INSERT INTO comments (user_id, ad_id, parent_comment_id, comment)
 VALUES (2,3,3,'Its jerry the 3rd nest boys');
 
-INSERT INTO admins (level, user_id)
-VALUES (3,1);
+INSERT INTO admins (level, user_id, password)
+VALUES (3,1,'$2a$12$aJIfWgo5ieSBFDLwYRpUBOnZpoCSCQFNiR53denCFhJKdMCIe5C7a');
+
+SELECT * FROM admins WHERE id = 7;

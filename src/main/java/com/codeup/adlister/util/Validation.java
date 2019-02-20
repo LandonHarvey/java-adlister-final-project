@@ -2,6 +2,7 @@ package com.codeup.adlister.util;
 
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.admin;
 
 public class Validation {
 
@@ -21,5 +22,9 @@ public class Validation {
     public static boolean isExistingEmail(String email) {
         User user = DaoFactory.getUsersDao().findByEmail(email);
         return user == null;
+    }
+
+    public static admin isUserAdmin (long id) {
+       return  DaoFactory.getAdminsDao().isAdmin(id);
     }
 }
