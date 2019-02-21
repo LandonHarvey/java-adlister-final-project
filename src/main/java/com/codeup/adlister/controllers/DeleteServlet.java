@@ -18,10 +18,20 @@ public class DeleteServlet extends HttpServlet {
         if (request.getParameter("deleteReport") != null){
             Long deleteReport = Long.parseLong(request.getParameter("deleteReport"));
             DaoFactory.getReportDao().delete(deleteReport);
+            response.sendRedirect("/admin");
+            return;
         }
         if (request.getParameter("deleteComment") != null){
             Long deleteComment = Long.parseLong(request.getParameter("deleteComment"));
             DaoFactory.getCommentDao().delete(deleteComment);
+            response.sendRedirect("/admin");
+            return;
+        }
+        if (request.getParameter("deleteUser") != null){
+            Long deleteUser = Long.parseLong(request.getParameter("deleteUser"));
+            DaoFactory.getUsersDao().delete(deleteUser);
+            response.sendRedirect("/admin");
+            return;
         }
         DaoFactory.getAdsDao().delete(deleteAd);
         response.sendRedirect("/profile");

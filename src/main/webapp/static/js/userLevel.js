@@ -26,3 +26,10 @@ function outOf(){
         outOf.innerText = "/" + levelz + 0;
     }
 }
+
+function updateReport(num) {
+    console.log(num);
+    document.getElementById("changeVariable").value = num;
+    document.getElementById("userBox").style.display = "block";
+    document.location.href = "#report";
+}

@@ -21,6 +21,7 @@ public class ViewProfileServlet extends HttpServlet {
         if (request.getParameter("id") != null) {
             String username = request.getParameter("id");
             User temp = DaoFactory.getUsersDao().findByUsername(username);
+            request.setAttribute("offenses", DaoFactory.getOfffenseDao().all());
             request.setAttribute("tempUser", DaoFactory.getUsersDao().findByUsername(username));
             request.setAttribute("tempUserAds", DaoFactory.getAdsDao().userAds(temp.getId()));
             request.setAttribute("tempUserLiked", DaoFactory.getAdsDao().likedAds(temp.getId()));

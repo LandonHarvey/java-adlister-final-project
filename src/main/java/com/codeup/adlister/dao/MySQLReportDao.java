@@ -111,17 +111,19 @@ public class MySQLReportDao implements Report {
         System.out.println("hi");
         if (type.equals("ad")){
             System.out.println(1);
-            query = "SELECT a.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created\n" +
-                    "FROM report AS r JOIN users u on r.user_id = u.id\n" +
-                    "JOIN users u2 on r.user_reported_id= u2.id JOIN ads a on r.ad_id = a.id\n" +
-                    "JOIN offense o on r.offense = o.id WHERE r.id = ?";
+            query = "SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created FROM report AS r\n" +
+                    "JOIN users u on r.user_id = u.id\n" +
+                    "JOIN ads a on r.ad_id = a.id\n" +
+                    "JOIN offense o on r.offense = o.id\n" +
+                    "JOIN users u2 on a.id= u2.id\n" +
+                    "WHERE r.id = ?";
         }else if(type.equals("comment")){
             System.out.println(2);
-            query = "SELECT c.id, u.username, o.offense_name, r.description, u2.username as 'offender', c.comment as 'title', r.created FROM report AS r\n" +
+            query = "SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', c.comment as 'title', r.created FROM report AS r\n" +
                     "JOIN users u on r.user_id = u.id\n" +
-                    "JOIN users u2\n" +
                     "JOIN comments c on r.comment_id = c.id\n" +
                     "JOIN offense o on r.offense = o.id\n" +
+                    "JOIN users u2 on c.user_id = u2.id\n" +
                     "WHERE r.id = ?";
         }else if (type.equals("user")){
             System.out.println(3);

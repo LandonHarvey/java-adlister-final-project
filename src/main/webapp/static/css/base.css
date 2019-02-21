@@ -12,12 +12,12 @@ body {
 
 .adminReports {
     display: flex;
-    justify-content: space-between;
     border: var(--secondary-color) solid 1px;
 }
 
 .adminReports > h3 {
     font-size: 24px;
+    min-width: 6em;
     max-width: 6em;
     max-height: 1.8em;
     overflow: scroll;
@@ -238,12 +238,22 @@ background-color: var(--secondary-color);
     color:var(--secondary-color);
 }
 
-.buttonChange {
+.buttonChange, .buttonChange2 {
     display: flex;
 }
 
-#commentBox {
+.buttonChange2 {
+    flex-direction: column;
+    padding-right: 1em;
+    align-items: center;
+}
+
+#commentBox, #reportBox, #userBox {
     display: none;
+}
+
+.flexBox{
+    display: flex;
 }
 
 .buttonRestyle {

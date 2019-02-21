@@ -54,8 +54,11 @@ public class ReportServlet extends HttpServlet {
         if (type.equals("ad")){
             DaoFactory.getReportDao().insertAdReport(user.getId(),offense,variable, report);
             response.sendRedirect(redirect);
-        }else {
+        }else if(type.equals("comment")) {
             DaoFactory.getReportDao().insertCommentReport(user.getId(),offense,variable,report);
+            response.sendRedirect(redirect);
+        } else {
+            DaoFactory.getReportDao().insertUserReport(user.getId(),offense,variable,report);
             response.sendRedirect(redirect);
         }
     }

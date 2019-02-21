@@ -11,5 +11,6 @@ public interface Users {
     User findByAdId(String ad_id);
     User findById(long id);
     void update(User user);
+    boolean delete(Long id);
     User findByCommentId (Long comment_id);
 }

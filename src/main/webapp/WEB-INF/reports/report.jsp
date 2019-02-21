@@ -14,7 +14,7 @@
             <h1>User Reported: </h1>
             <c:if test="${admin.level == 3}">
                 <form action="/delete" method="get">
-                    <button class="btn btn-warning" name="" value="${Report.id}">Delete User</button>
+                    <button class="btn btn-warning" name="deleteUser" value="${Report.id}">Delete User</button>
                 </form>
             </c:if>
         </c:if>

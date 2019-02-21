@@ -86,14 +86,14 @@
                 </div>
             </div>
         </c:forEach>
-        <div id="commentBox">
+        <div id="commentBox" class="commentCSS">
             <h4>Comment: </h4>
             <a href="#comment"></a>
-            <form action="/comment?id=${ad.id}" method="post">
+            <form class="flexBox" action="/comment?id=${ad.id}" method="post">
             <textarea name="comment" id="comment" cols="60" rows="3" placeholder="comment..."></textarea>
             <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}"/>
             <input id="parentComment" type="hidden" name="parentSent" value=""/>
-            <button type="submit">Post</button>
+            <button class="btn btn-success" type="submit">Post</button>
             </form>
         </div>
         <jsp:include page="../partials/messages.jsp" />

@@ -69,11 +69,29 @@
         <jsp:include page="/WEB-INF/partials/navbar.jsp" />
         <div class="container">
             <div class="titleProfile">
-                <h1>${temp.username} Profile!</h1>
+                <h1>${tempUser.username} Profile!</h1>
                 <input id="handlez" type="hidden" value="${fileHandler.fileHandler}">
                 <div id="content"></div>
                 <h2>Level: <span id="level"></span></h2>
                 <h2>Fortune: <span id="likes">${totalLikes}<span id="outof"></span></span></h2>
+                <button class="buttonRestyle" onclick="updateReport(${tempUser.id})"><span class="btn btn-danger">Report User</span></button>
+            </div>
+            <div id="userBox">
+                <h4>Report: </h4>
+                <a href="#user"></a>
+                <form action="/report" method="post">
+                <label for="offenses">Users Offense: </label>
+                <select name="offenses" id="offenses">
+                    <c:forEach var="offense" items="${offenses}">
+                        <option value="${offense.getId()}"><c:out value="${offense.getOffense_name()}"></c:out></option>
+                    </c:forEach>
+                </select>
+                    <textarea name="report" id="report" cols="60" rows="3" placeholder="Reason..."></textarea>
+                    <input type="hidden" name="redirect" value="/profile?id=${tempUser.username}"/>
+                    <input type="hidden" name="type" value="user"/>
+                    <input id="changeVariable" type="hidden" name="changeVariable" value=""/>
+                    <button type="submit">Post</button>
+                </form>
             </div>
         </div>
         <div class="container">
