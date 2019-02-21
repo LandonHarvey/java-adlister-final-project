@@ -17,6 +17,7 @@ public class AdIndividualServlet extends HttpServlet {
         request.setAttribute("ad", DaoFactory.getAdsDao().oneAd(adId));
         request.setAttribute("user",DaoFactory.getUsersDao().findByAdId(adId));
         request.setAttribute("comments", DaoFactory.getCommentDao().allByAdId((longId)));
+        request.setAttribute("offenses", DaoFactory.getOfffenseDao().all());
         request.getRequestDispatcher("/WEB-INF/ads/adIndividual.jsp").forward(request, response);
     }
 }

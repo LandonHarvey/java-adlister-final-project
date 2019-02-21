@@ -1,6 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.models.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,5 +28,35 @@ public class ReportServlet extends HttpServlet {
         }
         request.getSession().setAttribute("passcodeChecked", 0);
         request.getRequestDispatcher("/WEB-INF/adminPage.jsp").forward(request, response);
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String redirect = request.getParameter("redirect");
+        if (request.getSession().getAttribute("user") == null && redirect != null) {
+            request.getSession().setAttribute("redirect", redirect);
+            response.sendRedirect("/login");
+            return;
+        }else if (request.getSession().getAttribute("user") == null){
+            request.getSession().setAttribute("redirect", "/ads");
+            response.sendRedirect("/login");
+            return;
+        }
+
+        User user = (User) request.getSession().getAttribute("user");
+        String report = request.getParameter("report");
+        Long offense = Long.parseLong(request.getParameter("offenses"));
+        String type = request.getParameter("type");
+        Long variable = Long.parseLong(request.getParameter("changeVariable"));
+        System.out.println(report);
+        System.out.println(offense);
+        System.out.println(type);
+        System.out.println(variable);
+
+        if (type.equals("ad")){
+            DaoFactory.getReportDao().insertAdReport(user.getId(),offense,variable, report);
+            response.sendRedirect(redirect);
+        }else {
+            DaoFactory.getReportDao().insertCommentReport(user.getId(),offense,variable,report);
+            response.sendRedirect(redirect);
+        }
     }
 }

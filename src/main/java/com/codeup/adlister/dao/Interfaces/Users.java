@@ -9,6 +9,7 @@ public interface Users {
     User findByEmail(String email);
     Long insert(User user);
     User findByAdId(String ad_id);
+    User findById(long id);
     void update(User user);
     User findByCommentId (Long comment_id);
 }

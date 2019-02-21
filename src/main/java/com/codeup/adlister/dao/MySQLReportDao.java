@@ -38,7 +38,12 @@ public class MySQLReportDao implements Report {
     @Override
     public List<report> allAdReports() {
         try {
-            PreparedStatement stmt = connection.prepareStatement("SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created FROM report AS r JOIN users u on r.user_id = u.id JOIN users u2 on r.user_reported_id= u2.id JOIN ads a on r.ad_id = a.id JOIN offense o on r.offense = o.id WHERE ad_id IS NOT NULL");
+            PreparedStatement stmt = connection.prepareStatement("SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created FROM report AS r\n" +
+                    "JOIN users u on r.user_id = u.id\n" +
+                    "JOIN ads a on r.ad_id = a.id\n" +
+                    "JOIN offense o on r.offense = o.id\n" +
+                    "JOIN users u2 on a.id= u2.id\n" +
+                    "WHERE ad_id IS NOT NULL");
             return createReportFromResults(stmt.executeQuery());
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving all ad reported.", e);
@@ -64,9 +69,9 @@ public class MySQLReportDao implements Report {
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', c.comment as 'title', r.created FROM report AS r\n" +
                     "JOIN users u on r.user_id = u.id\n" +
-                    "JOIN users u2 on r.user_reported_id= u2.id\n" +
                     "JOIN comments c on r.comment_id = c.id\n" +
                     "JOIN offense o on r.offense = o.id\n" +
+                    "JOIN users u2 on c.user_id = u2.id\n" +
                     "WHERE comment_id IS NOT NULL");
             return createReportFromResults(stmt.executeQuery());
         } catch (SQLException e) {
@@ -114,7 +119,7 @@ public class MySQLReportDao implements Report {
             System.out.println(2);
             query = "SELECT c.id, u.username, o.offense_name, r.description, u2.username as 'offender', c.comment as 'title', r.created FROM report AS r\n" +
                     "JOIN users u on r.user_id = u.id\n" +
-                    "JOIN users u2 on r.user_reported_id= u2.id\n" +
+                    "JOIN users u2\n" +
                     "JOIN comments c on r.comment_id = c.id\n" +
                     "JOIN offense o on r.offense = o.id\n" +
                     "WHERE r.id = ?";

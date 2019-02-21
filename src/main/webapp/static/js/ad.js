@@ -6,3 +6,11 @@ function updateComment(num) {
     document.getElementById("commentBox").style.display = "block";
     document.location.href = "#comment";
 }
+
+function updateReport(num) {
+    console.log(num);
+    document.getElementById("changeVariable").value = num;
+    console.log(document.getElementById("parentComment").value);
+    document.getElementById("reportBox").style.display = "block";
+    document.location.href = "#report";
+}

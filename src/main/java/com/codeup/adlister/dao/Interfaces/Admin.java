@@ -10,9 +10,11 @@ public interface Admin {
     // String
     List<admin> allString();
     // get whether user is admin
-    admin isAdmin(long id);
+    boolean isAdmin(long id);
+    // get admin
+    admin singleAdmin(long id);
     // insert a new admin and return the new admins id
-    boolean insert(long user_id, long jedimaster,  String level);
+    boolean insert(admin admin);
     // delete admin rights
     void delete(String id);
     // update an existing admin

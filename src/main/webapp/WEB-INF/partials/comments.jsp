@@ -17,9 +17,10 @@
             <p>${child.comment}</p>
             <input id="parent" type="hidden" name="parent"/>
             <div class="voteLine">
-            <span>Last Edited: ${child.posted.toString().split('T')[0]}</span>
-            <button class="buttonRestyle" onclick="updateComment(${child.id})"><span class="glyphicon glyphicon-comment"></span></button>
-            <span id="likeMachineC">
+                <span>Last Edited: ${child.posted.toString().split('T')[0]}</span>
+                <button class="buttonRestyle" onclick="updateComment(${child.id})"><span class="glyphicon glyphicon-comment"></span></button>
+                <button class="buttonRestyle" value="${child.getId()}" onclick="updateReport(${child.id})"><span class="glyphicon glyphicon-flag"></span></button>
+                <span id="likeMachineC">
                 <div class="votesC">
                     <form action="/commentupvote?id=${child.id}" method="POST">
                         <input type="hidden" name="up" value="up" />

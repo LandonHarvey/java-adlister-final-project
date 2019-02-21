@@ -24,7 +24,15 @@ public class Validation {
         return user == null;
     }
 
-    public static admin isUserAdmin (long id) {
+    public static boolean isUserAdmin (long id) {
        return  DaoFactory.getAdminsDao().isAdmin(id);
+    }
+
+    public static boolean isOldAdmin (long id){
+        return DaoFactory.getAdminsDao().isAdmin(id);
+    }
+
+    public static boolean isExistingUserID(long id){
+        return DaoFactory.getUsersDao().findById(id) != null;
     }
 }

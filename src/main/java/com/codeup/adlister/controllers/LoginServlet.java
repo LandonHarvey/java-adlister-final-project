@@ -38,8 +38,9 @@ public class LoginServlet extends HttpServlet {
         }
 
         int level = 0;
-        admin adminLevel = Validation.isUserAdmin(user.getId());
-        if (adminLevel != null) {
+        boolean validAdmin = Validation.isUserAdmin(user.getId());
+        admin adminLevel = DaoFactory.getAdminsDao().singleAdmin(user.getId());
+        if (validAdmin) {
             level = Integer.valueOf(adminLevel.getLevel());
         }
 

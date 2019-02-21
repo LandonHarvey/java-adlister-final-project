@@ -49,14 +49,27 @@ public class MySQLAdminDao implements Admin {
 
     // is the user an admin
     @Override
-    public admin isAdmin(long id) {
+    public boolean isAdmin(long id) {
         try {
-            String query = "SELECT * FROM admins WHERE id = ?";
+            String query = "SELECT * FROM admins WHERE user_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving admin level of user if any.", e);
+        }
+    }
+
+    @Override
+    public admin singleAdmin(long id) {
+        try {
+            String query = "SELECT * FROM admins WHERE user_id = ?";
             PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                return extractAdmin(rs);
+                return extractAdminWithoutSet(rs);
             }
             return null;
         } catch (SQLException e) {
@@ -66,18 +79,19 @@ public class MySQLAdminDao implements Admin {
 
     //insert new admin must have jedimaster
     @Override
-    public boolean insert(long jedimaster, long user_id, String level) {
-        String query = "INSERT INTO admins (jedimaster, user_id, level) VALUES (?, ?, ?)";
+    public boolean insert(admin admin) {
+        String query = "INSERT INTO admins (jedimaster, user_id, level, password) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, jedimaster);
-            stmt.setLong(2, user_id);
-            stmt.setString(3, level);
+            stmt.setLong(1, admin.getJedimaster());
+            stmt.setLong(2, admin.getUser_id());
+            stmt.setString(3, admin.getLevel());
+            stmt.setString(4, admin.getPassword());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             return rs.next();
         } catch (SQLException e) {
-            throw new RuntimeException("Error inserting comment", e);
+            throw new RuntimeException("Error inserting Admin", e);
         }
     }
 
@@ -117,6 +131,13 @@ public class MySQLAdminDao implements Admin {
     private admin extractAdmin(ResultSet rs) throws SQLException{
         return new admin(
                 rs.getLong("jedimaster"),
+                rs.getLong("user_id"),
+                rs.getString("level"),
+                rs.getString("password")
+        );
+    }
+    private admin extractAdminWithoutSet(ResultSet rs) throws SQLException{
+        return new admin(
                 rs.getLong("user_id"),
                 rs.getString("level"),
                 rs.getString("password")

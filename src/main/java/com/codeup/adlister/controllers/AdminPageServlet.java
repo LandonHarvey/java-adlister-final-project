@@ -35,6 +35,7 @@ public class AdminPageServlet extends HttpServlet {
         String passcode = request.getParameter("passcode");
         admin admin = (admin) request.getSession().getAttribute("admin");
         boolean validAttempt = Password.check(passcode, admin.getPassword());
+        System.out.println(admin.getLevel());
 
         if (validAttempt){
             request.getSession().setAttribute("passcodeChecked",1);

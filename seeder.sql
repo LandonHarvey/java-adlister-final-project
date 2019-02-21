@@ -63,3 +63,14 @@ JOIN comments c on r.comment_id = c.id
 JOIN ads as a on c.ad_id = a.id
 JOIN offense o on r.offense = o.id
 WHERE r.id = 2
+
+SELECT * FROM admins WHERE user_id = 7;
+
+DELETE FROM report where id = 4;
+
+SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created FROM report AS r
+JOIN users u on r.user_id = u.id
+JOIN ads a on r.ad_id = a.id
+JOIN offense o on r.offense = o.id
+JOIN users u2 on a.id= u2.id
+WHERE ad_id IS NOT NULL

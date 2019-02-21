@@ -11,6 +11,9 @@
 <jsp:include page="/WEB-INF/partials/adminPassword.jsp" />
 <c:if test="${sessionScope.passcodeChecked == 1}">
     <div class="container">
+    <c:if test="${sessionScope.admin.level == 3}">
+        <a href="/createAdmin">Create Admin</a>
+    </c:if>
         <h1>Here are all reported Posts!</h1>
         <div class="adminReports">
             <h3>Username |</h3>

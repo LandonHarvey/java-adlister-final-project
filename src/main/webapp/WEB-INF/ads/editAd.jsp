@@ -28,7 +28,7 @@
                 <label for="categories">Categories</label>
                 <select class="form-control" name="categories" id="categories" name="categories" multiple>
                     <c:forEach var="category" items="${categories}">
-                        <option value="${category.getId()}"> <c:out value="${category.getName()}"></c:out></option>
+                        <option value="${category.getId()}"><c:out value="${category.getName()}"></c:out></option>
                     </c:forEach>
                 </select>
             </div>

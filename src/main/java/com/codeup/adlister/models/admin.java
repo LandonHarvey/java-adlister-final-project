@@ -29,6 +29,12 @@ public class admin {
         this.level = level;
     }
 
+    public admin (long user_id, String level, String password){
+        this.user_id = user_id;
+        this.level = level;
+        this.password = password;
+    }
+
     public long getId() {
         return id;
     }

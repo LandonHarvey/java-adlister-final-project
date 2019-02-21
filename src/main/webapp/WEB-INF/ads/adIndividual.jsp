@@ -47,7 +47,8 @@
             <p>${ad.categories}</p>
             <span>Created By: <a href="/profile?id=${user.username}"><c:out value="${user.username}"> </c:out></a></span><br>
             <span> Last Edited: <c:out value="${ad.created.toString().split('T')[0]}"></c:out></span>
-            <button class="buttonRestyle" value="${child.getId()}" onclick="updateComment(null)"><span class="glyphicon glyphicon-comment"></span></button>
+            <button class="buttonRestyle" onclick="updateComment(null)"><span class="glyphicon glyphicon-comment"></span></button>
+            <button class="buttonRestyle" onclick="updateReport(${ad.id})"><span class="glyphicon glyphicon-flag"></span></button>
         </div>
     </div>
     <div class="col-md-6">
@@ -60,6 +61,7 @@
                     <div class="voteLine">
                         <span>Last Edited: ${comment.posted.toString().split('T')[0]}</span>
                         <button class="buttonRestyle" onclick="updateComment(${comment.id})"><span class="glyphicon glyphicon-comment"></span></button>
+                        <button class="buttonRestyle" value="${child.getId()}" onclick="updateReport(${comment.id})"><span class="glyphicon glyphicon-flag"></span></button>
                         <span id="likeMachineC">
                             <div class="votesC">
                                 <form action="/commentupvote?id=${comment.id}" method="POST">
@@ -92,6 +94,28 @@
             <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}"/>
             <input id="parentComment" type="hidden" name="parentSent" value=""/>
             <button type="submit">Post</button>
+            </form>
+        </div>
+        <jsp:include page="../partials/messages.jsp" />
+        <div id="reportBox">
+            <h4>Report: </h4>
+            <a href="#report"></a>
+            <form action="/report" method="post">
+                <label for="offenses">Users Offense: </label>
+                <select name="offenses" id="offenses">
+                    <c:forEach var="offense" items="${offenses}">
+                        <option value="${offense.getId()}"><c:out value="${offense.getOffense_name()}"></c:out></option>
+                    </c:forEach>
+                </select>
+                <label for="type">Content: </label>
+                <select name="type" id="type">
+                    <option value="comment">Comment</option>
+                    <option value="ad">Post</option>
+                </select>
+                <textarea name="report" id="report" cols="60" rows="3" placeholder="Report Description..."></textarea>
+                <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}"/>
+                <input id="changeVariable" type="hidden" name="changeVariable" value=""/>
+                <button type="submit">Post</button>
             </form>
         </div>
     </div>
