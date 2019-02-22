@@ -80,4 +80,6 @@ JOIN users u on r.user_id = u.id
 JOIN ads a on r.ad_id = a.id
 JOIN offense o on r.offense = o.id
 JOIN users u2 on a.user_id = u2.id
-WHERE ad_id IS NOT NULL
+WHERE ad_id IS NOT NULL;
+
+SELECT * FROM users;

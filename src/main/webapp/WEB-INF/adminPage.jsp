@@ -121,13 +121,11 @@
                     <tr>
                         <td>Username</td>
                         <td>Email</td>
-                        <td>Actions</td>
                     </tr>
                     <c:forEach  var="user" items="${userList}" >
                         <tr>
-                            <td>${user.username}</td>
+                            <td><a href="/profile?id=${user.username}">${user.username}</a></td>
                             <td>${user.email}</td>
-                            <td></td>
                         </tr>
                     </c:forEach>
                 </table>
