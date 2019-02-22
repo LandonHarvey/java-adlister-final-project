@@ -111,7 +111,7 @@ public class MySQLReportDao implements Report {
         System.out.println("hi");
         if (type.equals("ad")){
             System.out.println(1);
-            query = "SELECT r.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created FROM report AS r\n" +
+            query = "SELECT a.id, u.username, o.offense_name, r.description, u2.username as 'offender', a.title, r.created FROM report AS r\n" +
                     "JOIN users u on r.user_id = u.id\n" +
                     "JOIN ads a on r.ad_id = a.id\n" +
                     "JOIN offense o on r.offense = o.id\n" +

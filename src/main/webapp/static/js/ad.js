@@ -10,7 +10,7 @@ function updateComment(num) {
 function updateReport(num) {
     console.log(num);
     document.getElementById("changeVariable").value = num;
-    console.log(document.getElementById("parentComment").value);
+    console.log(document.getElementById("changeVariable").value);
     document.getElementById("reportBox").style.display = "block";
     document.location.href = "#report";
 }

@@ -46,10 +46,10 @@ public class ReportServlet extends HttpServlet {
         Long offense = Long.parseLong(request.getParameter("offenses"));
         String type = request.getParameter("type");
         Long variable = Long.parseLong(request.getParameter("changeVariable"));
-        System.out.println(report);
-        System.out.println(offense);
-        System.out.println(type);
-        System.out.println(variable);
+//        System.out.println(report);
+//        System.out.println(offense);
+//        System.out.println(type);
+//        System.out.println(variable);
 
         if (type.equals("ad")){
             DaoFactory.getReportDao().insertAdReport(user.getId(),offense,variable, report);

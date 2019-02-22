@@ -12,7 +12,7 @@
 <c:if test="${sessionScope.passcodeChecked == 1}">
 <div class="container">
     <c:if test="${sessionScope.admin.level == 3}">
-        <a href="/createAdmin">Create Admin</a>
+        <button class="btn btn-success"><a id="hyper" href="/createAdmin">Create Admin</a></button>
     </c:if>
         <h1>Here are all reported Posts!</h1>
         <table class="table table-hover">
@@ -114,12 +114,18 @@
     <c:if test="${sessionScope.admin.level == 3}">
     <div class="container">
         <h1>Here are all Admins</h1>
+        <table class="table table-hover">
+            <tr>
+                <td>Padawan</td>
+                <td>Level</td>
+                <td>JediMaster</td>
+            </tr>
         <c:forEach  var="admin" items="${adminList}" >
-            <div class="adminReports">
-                <h3>${admin.master}</h3>
-                <h3>${admin.username}</h3>
-                <h3>${admin.level}</h3>
-            </div>
+            <tr>
+                <td>${admin.username}</td>
+                <td>${admin.level}</td>
+                <td>${admin.master}</td>
+            </tr>
         </c:forEach>
     </div>
     </c:if>

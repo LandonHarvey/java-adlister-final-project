@@ -5,6 +5,16 @@
     --secondary-color:#A75BFF;
 }
 
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: var(--secondary-color);
+}
+
+.table tr:first-of-type > td {
+    text-decoration: underline;
+    font-size: larger;
+    font-weight: bold;
+}
+
 body {
     background: var(--main-color);
     font-family: 'Raleway', Arial, sans-serif;
@@ -226,11 +236,7 @@ background-color: var(--secondary-color);
     color:#333;
 }
 
-#hyper {
-    color:white;
-}
-
-#hyper2 {
+#hyper, #hyper2 {
     color:white;
 }
 

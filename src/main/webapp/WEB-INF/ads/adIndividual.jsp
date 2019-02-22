@@ -97,25 +97,28 @@
             </form>
         </div>
         <jsp:include page="../partials/messages.jsp" />
-        <div id="reportBox">
+        <div id="reportBox" class="commentCSS">
             <h4>Report: </h4>
             <a href="#report"></a>
             <form action="/report" method="post">
                 <label for="offenses">Users Offense: </label>
-                <select name="offenses" id="offenses">
+                <select class="form-control input-sm" name="offenses" id="offenses">
                     <c:forEach var="offense" items="${offenses}">
                         <option value="${offense.getId()}"><c:out value="${offense.getOffense_name()}"></c:out></option>
                     </c:forEach>
                 </select>
                 <label for="type">Content: </label>
-                <select name="type" id="type">
+                <select class="form-control input-sm" name="type" id="type">
                     <option value="comment">Comment</option>
                     <option value="ad">Post</option>
                 </select>
-                <textarea name="report" id="report" cols="60" rows="3" placeholder="Report Description..."></textarea>
                 <input type="hidden" name="redirect" value="/adIndividual?id=${ad.id}"/>
                 <input id="changeVariable" type="hidden" name="changeVariable" value=""/>
-                <button type="submit">Post</button>
+                <br>
+                <div class="flexBox">
+                <textarea name="report" id="report" cols="60" rows="3" placeholder="Report Description..."></textarea>
+                <button class="btn btn-success" type="submit">Post</button>
+                </div>
             </form>
         </div>
     </div>
