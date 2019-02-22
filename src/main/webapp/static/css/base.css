@@ -34,7 +34,12 @@ body {
 }
 
 .container {
-    max-height: 500px;
+    max-height: 80%;
+    overflow: scroll;
+}
+
+.container1 {
+    max-height: 83%;
     overflow: scroll;
 }
 

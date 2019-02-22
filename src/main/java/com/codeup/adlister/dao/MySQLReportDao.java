@@ -42,7 +42,7 @@ public class MySQLReportDao implements Report {
                     "JOIN users u on r.user_id = u.id\n" +
                     "JOIN ads a on r.ad_id = a.id\n" +
                     "JOIN offense o on r.offense = o.id\n" +
-                    "JOIN users u2 on a.id= u2.id\n" +
+                    "JOIN users u2 on a.user_id= u2.id\n" +
                     "WHERE ad_id IS NOT NULL");
             return createReportFromResults(stmt.executeQuery());
         } catch (SQLException e) {
@@ -115,7 +115,7 @@ public class MySQLReportDao implements Report {
                     "JOIN users u on r.user_id = u.id\n" +
                     "JOIN ads a on r.ad_id = a.id\n" +
                     "JOIN offense o on r.offense = o.id\n" +
-                    "JOIN users u2 on a.id= u2.id\n" +
+                    "JOIN users u2 on a.user_id= u2.id\n" +
                     "WHERE r.id = ?";
         }else if(type.equals("comment")){
             System.out.println(2);

@@ -60,6 +60,16 @@
             <input type="submit" class="btn btn-block btn-primary">
         </form>
     </div>
+    <div>
+        <jsp:include page="/WEB-INF/partials/messages.jsp" />
+        <h1>Create Category</h1>
+        <form name="catCheck" action="/createCategory" method="post">
+            <div class="flexBox">
+            <input class="form-control" name="newCategory" type="text" maxlength="25" value="${newCategory}">
+            <input class="btn btn-success" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
 </div>
 </div>
 <script type="text/javascript" src="/static/js/categorySearch.js"></script>

@@ -34,6 +34,21 @@ public class MySQLCategoryDao implements Categories {
         }
     }
 
+    @Override
+    public boolean insert(String category){
+        String query = "INSERT INTO categories (category_name) VALUES (?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, category);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            return rs.next();
+        }catch (SQLException e){
+            throw new RuntimeException("Error inserting new category", e);
+        }
+
+    }
+
     private Category extractCategory(ResultSet rs) throws SQLException {
         return new Category(
                 rs.getLong("id"),
