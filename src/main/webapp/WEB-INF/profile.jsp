@@ -20,7 +20,11 @@
                 <h2>Level: <span id="level"></span></h2>
                 <h2>Fortune: <span id="likes">${totalLikes}<span id="outof"></span></span></h2>
                 <form action="/editProfile" method="get">
+                    <img id="ghostLogo ghost" src="static/img/ghost.ico" alt="ghost"
+                         style="height: 2em; width: 2em; margin-right: -0.6em;">
                     <button class="btn btn-success" name="editProfile" value="${sessionScope.user}">Edit Profile</button>
+                    <img id="ghostLogo" src="static/img/ghost.ico" alt="ghost"
+                         style="height: 2em; width: 2em; margin-left: -0.3em;">
                 </form>
             </div>
         </div>

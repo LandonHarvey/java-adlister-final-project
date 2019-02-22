@@ -112,22 +112,44 @@
         </table>
 </div>
     <c:if test="${sessionScope.admin.level == 3}">
+    <br>
     <div class="container">
-        <h1>Here are all Admins</h1>
-        <table class="table table-hover">
-            <tr>
-                <td>Padawan</td>
-                <td>Level</td>
-                <td>JediMaster</td>
-            </tr>
-        <c:forEach  var="admin" items="${adminList}" >
-            <tr>
-                <td>${admin.username}</td>
-                <td>${admin.level}</td>
-                <td>${admin.master}</td>
-            </tr>
-        </c:forEach>
-    </div>
+        <div class="flexBox1">
+            <div class="flexBoxRow">
+                <h1>Here are all Users</h1>
+                <table class="table table-hover">
+                    <tr>
+                        <td>Username</td>
+                        <td>Email</td>
+                        <td>Actions</td>
+                    </tr>
+                    <c:forEach  var="user" items="${userList}" >
+                        <tr>
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
+            <div class="flexBoxRow">
+                <h1>Here are all Admins</h1>
+                <table class="table table-hover">
+                    <tr>
+                        <td>Padawan</td>
+                        <td>Level</td>
+                        <td>JediMaster</td>
+                    </tr>
+                <c:forEach  var="admin" items="${adminList}" >
+                    <tr>
+                        <td>${admin.username}</td>
+                        <td>${admin.level}</td>
+                        <td>${admin.master}</td>
+                    </tr>
+                </c:forEach>
+                </table>
+            </div>
+        </div>
     </c:if>
 </c:if>
 </body>

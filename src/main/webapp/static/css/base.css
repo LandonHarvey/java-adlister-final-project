@@ -267,6 +267,16 @@ background-color: var(--secondary-color);
     display: flex;
 }
 
+.flexBox1 {
+    display: flex;
+    justify-content:space-between;
+}
+
+.flexBoxRow {
+    display: flex;
+    flex-direction: column;
+}
+
 .buttonRestyle {
     background: none;
     color: inherit;

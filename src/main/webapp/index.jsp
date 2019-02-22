@@ -10,7 +10,7 @@
 <body>
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
-        <h1>Welcome to the Adlister!</h1>
+        <h1>Welcome to the<img id="ghostLogo" src="static/img/ghost.ico" alt="ghost" style="height: 1em; width: 1em; margin-right: -5px;margin-bottom: 9px;">GhostPost!</h1>
     </div>
 </body>
 </html>

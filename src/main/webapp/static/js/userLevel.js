@@ -13,6 +13,7 @@ window.onload = function userLevel(){
             distance = cdistance;
         }
     }
+
     level.innerText = levels[idx];
     outOf();
 };
@@ -33,3 +34,4 @@ function updateReport(num) {
     document.getElementById("userBox").style.display = "block";
     document.location.href = "#report";
 }
+

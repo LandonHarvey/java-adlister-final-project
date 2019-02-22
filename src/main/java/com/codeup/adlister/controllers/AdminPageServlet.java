@@ -24,6 +24,7 @@ public class AdminPageServlet extends HttpServlet {
             request.setAttribute("commentReports", DaoFactory.getReportDao().allCommentReports());
             request.setAttribute("userReports", DaoFactory.getReportDao().allUserReports());
             request.setAttribute("adminList", DaoFactory.getAdminsDao().allString());
+            request.setAttribute("userList", DaoFactory.getUsersDao().all());
             request.getRequestDispatcher("/WEB-INF/adminPage.jsp").forward(request, response);
             return;
         }
