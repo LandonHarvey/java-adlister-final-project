@@ -15,6 +15,8 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
+
+
     @Override
     public Long insert(Long id, String title, String des) {
         return null;

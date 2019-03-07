@@ -1,2 +1,2 @@
-BUILD_COMMAND=command_to_execute_to_build_your_project.sh
-JAR_FILE=relative/path/to/the_artifact.jar
+BUILD_COMMAND=mvn compile war:exploded
+JAR_FILE=target/adlister-1.0-SNAPSHOT.war
